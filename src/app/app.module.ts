@@ -12,6 +12,8 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
 import { CompaniesComponent } from './companies/companies.component';
 import {HttpClientModule} from '@angular/common/http';
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -28,11 +30,16 @@ import {HttpClientModule} from '@angular/common/http';
     FormsModule,
     MatNativeDateModule,
     MatButtonModule,
-    HttpClientModule
+    HttpClientModule,
+    MatTableModule,
+    MatPaginatorModule
   ],
   providers: [],
-  bootstrap: [AppComponent,
-    MenusComponent]
+  bootstrap: [
+    AppComponent,
+    MenusComponent,
+    CompaniesComponent
+  ]
 })
 export class AppModule { }
 

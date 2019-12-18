@@ -1,6 +1,6 @@
 <button mat-button [matMenuTriggerFor]="companies">Companies</button>
 <mat-menu #companies="matMenu" yPosition="below">
-  <button mat-menu-item>List</button>
+  <button mat-menu-item [routerLink]="'/companies'">List</button>
 </mat-menu>
 
 <button mat-button [matMenuTriggerFor]="login">Login</button>
