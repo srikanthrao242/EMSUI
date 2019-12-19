@@ -1,6 +1,20 @@
-<h4>Companies List</h4>
+<mat-toolbar color="primary">
+    <span>Registered Companies</span>
+    <span class="spacer"></span>
+    Reload data:
+    <button mat-icon-button (click)="refresh()">
+      <mat-icon>refresh</mat-icon>
+    </button>
+  </mat-toolbar>
+
 
 <div class="mat-elevation-z8">
+
+    <div class="form">
+        <mat-form-field floatPlaceholder="never" color="accent">
+          <input matInput #filter placeholder="Filter issues">
+        </mat-form-field>
+      </div>
 
     <table mat-table [dataSource]="dataSource" matSort>
 
@@ -9,11 +23,39 @@
         <td mat-cell *matCellDef="let element"> {{element[column.name]}} </td>
       </ng-container>
 
+       <!-- actions -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            <button mat-icon-button color="primary" (click)="addNew()">
+              <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
+            </button>
+        </th>
+        <td mat-cell *matCellDef="let row; let i=index;">
+          <button mat-icon-button color="accent" (click)="startEdit(i, row.id, row.title, row.state, row.url, row.created_at, row.updated_at)">
+            <mat-icon aria-label="Edit">edit</mat-icon>
+          </button>
+
+          <button mat-icon-button color="accent" (click)="deleteItem(i, row.id, row.title, row.state, row.url)">
+            <mat-icon aria-label="Delete">delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
 
-    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    <div class="no-results" [style.display]="dataSource.length == 0 ? '' : 'none'">
+      No results
+    </div>
+
+    <mat-paginator #paginator
+                    [length]="dataSource.length"
+                    [pageIndex]="0"
+                    [pageSize]="10"
+                    [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons>
+    </mat-paginator>
+
 </div>
 
 
