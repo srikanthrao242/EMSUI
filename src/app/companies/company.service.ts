@@ -18,7 +18,7 @@ export class CompanyService {
   dataChange: BehaviorSubject<Company[]> = new BehaviorSubject<Company[]>([]);
 
   httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json',
+    headers: new HttpHeaders({ 'Content-Type': '*/*', 'Access-Control-Allow-Methods' : 'GET, POST, PUT, DELETE, OPTIONS',
     'Access-Control-Allow-Origin': config.server.serverURL  })
   };
 
@@ -32,6 +32,11 @@ export class CompanyService {
 
   getDialogData() {
     return this.dialogData;
+  }
+
+  addDays(ds: string, days: number) : string {
+    const d = new Date(ds);
+    return new Date(d.setDate(d.getDate() + days)).toISOString().replace("T", " ").replace("Z","");
   }
 
 
@@ -71,10 +76,20 @@ export class CompanyService {
     //////// Save methods //////////
 
   /** POST: add a new company to the server */
-  addCompany (company: Company): Observable<Company> {
-    return this.http.post<Company>(this.companyUrl, company, this.httpOptions).pipe(
-      catchError(this.handleError<Company>('addCompany'))
-    );
+  addCompany (company: Company): void {
+    company.registerdate = new Date().toISOString().replace("T", " ").replace("Z","");
+    company.registrationexp = this.addDays(company.registerdate,company.numberofdays);
+    this.http.post<Company>(this.companyUrl, company)
+    .subscribe(
+      (val) => {
+          console.log("DELETE call successful value returned in body", val);
+      },
+      response => {
+          console.log("DELETE call in error", response);
+      },
+      () => {
+          console.log("The DELETE observable is now completed.");
+      });
   }
 
   /** DELETE: delete the company from the server */
@@ -96,6 +111,11 @@ export class CompanyService {
 
   /** PUT: update the company on the server */
   updateCompany (company: Company): Observable<any> {
+
+    if(company.numberofdays && company.registerdate){
+      company.registrationexp = this.addDays(company.registerdate,company.numberofdays);
+    }
+
     return this.http.put(this.companyUrl, company, this.httpOptions).pipe(
       catchError(this.handleError<any>('updateHero'))
     );

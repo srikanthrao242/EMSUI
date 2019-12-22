@@ -1,0 +1,12 @@
+.login-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+  margin-top: 2%;
+  width: 45%;
+  margin-left: 20%;
+}
+
+.login-full-width {
+  width: 100%;
+}

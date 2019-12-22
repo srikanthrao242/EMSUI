@@ -18,13 +18,16 @@ import { AddComponent } from './dialogs/add/add.component';
 import { DeleteComponent } from './dialogs/delete/delete.component';
 import { EditComponent } from './dialogs/edit/edit.component';
 
+import {MatGridListModule} from '@angular/material'
 
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSortModule } from '@angular/material/sort';
 import { MatToolbarModule } from '@angular/material/toolbar';
-
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { AlertcComponent } from './alertc/alertc.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,10 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     CompaniesComponent,
     AddComponent,
     DeleteComponent,
-    EditComponent
+    EditComponent,
+    LoginComponent,
+    RegisterComponent,
+    AlertcComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +57,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatIconModule,
     MatInputModule,
     MatSortModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatGridListModule
   ],
   providers: [],
   bootstrap: [
@@ -60,7 +67,10 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     CompaniesComponent,
     AddComponent,
     DeleteComponent,
-    EditComponent
+    EditComponent,
+    LoginComponent,
+    RegisterComponent,
+    AlertcComponent
   ]
 })
 export class AppModule { }

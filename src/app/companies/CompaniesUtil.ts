@@ -6,8 +6,11 @@ export interface Company{
   city: string,
   mobile: string,
   email: string,
-  registerdate: Date,
-  registrationexp: Date
+  numberofdays:number,
+  registerdate: string,
+  registrationexp: string,
+  whatsup: string,
+  isActive: boolean
 }
 
 export interface ColumnsSchema{
@@ -22,6 +25,9 @@ export const columnsDesc: ColumnsSchema[] = [
   { name: 'city', label: 'City' },
   { name: 'mobile', label: 'Mobile' },
   { name: 'email', label: 'Email' },
+  {name: 'numberofdays', label: 'Days to add'},
+  {name: 'whatsup', label: 'whatsup number'},
+  {name: 'isActive', label: 'isActive'},
   { name: 'registerdate', label: 'Registered Date' },
   { name: 'registrationexp', label: 'Registration Exp Date' }
 ];

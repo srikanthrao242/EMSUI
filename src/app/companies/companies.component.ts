@@ -29,7 +29,7 @@ export class CompaniesComponent implements OnInit {
 
   columns : ColumnsSchema[]
 
-  displayedColumns: string[] = ['id','companyname','address','city','mobile','email','registerdate','registrationexp','actions'];
+  displayedColumns: string[] = ['id','companyname','address','city','mobile','email','registerdate','registrationexp','whatsup','isActive','actions'];
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -61,7 +61,7 @@ export class CompaniesComponent implements OnInit {
 
   addNew(issue: Company) {
     const dialogRef = this.dialog.open(AddComponent, {
-      data: {issue: issue }
+      data: {}
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -74,6 +74,11 @@ export class CompaniesComponent implements OnInit {
     });
   }
 
+  addDays(dst: string, days: number) : string {
+    const d = new Date(dst);
+    return new Date(d.setDate(d.getDate() + days)).toISOString().replace("T"," ").replace("Z","");
+  }
+
   startEdit(i: number,
      id : number,
     companyname:string,
@@ -81,14 +86,15 @@ export class CompaniesComponent implements OnInit {
     city: string,
     mobile: string,
     email: string,
-    registerdate: Date) {
+    numberofdays: number,
+    registerdate: string,
+    whatsup: string) {
     this.id = id;
     // index row is used just for debugging proposes and can be removed
     this.index = i;
-    console.log(this.index);
     const dialogRef = this.dialog.open(EditComponent, {
       data: {id: id, companyname: companyname, address: address,
-        city: city, mobile: mobile, email: email, registerdate: new Date(registerdate)}
+        city: city, mobile: mobile, email: email, numberofdays: numberofdays, whatsup: whatsup, registrationexp: this.addDays(registerdate, numberofdays)}
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -155,6 +161,11 @@ export class ComapnyDataSource extends DataSource<Company> {
     this._filterChange.subscribe(() => this._paginator.pageIndex = 0);
   }
 
+  isSearchMatch(issue:Company):boolean{
+    const searchStr = (issue.id + issue.companyname + issue.city + issue.email).toLowerCase();
+    return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
+  }
+
   /** Connect function called by the table to retrieve one stream containing the data to render. */
   connect(): Observable<Company[]> {
     // Listen for any changes in the base data, sorting, filtering, or pagination
@@ -170,8 +181,7 @@ export class ComapnyDataSource extends DataSource<Company> {
     return merge(...displayDataChanges).pipe(map( () => {
         // Filter data
         this.filteredData = this._exampleDatabase.data.slice().filter((issue: Company) => {
-          const searchStr = (issue.id + issue.companyname + issue.city + issue.email).toLowerCase();
-          return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
+          return (issue && issue.id && this.isSearchMatch(issue));
         });
 
         // Sort filtered data

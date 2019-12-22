@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {FormControl, Validators} from '@angular/forms';
-import {columnsDesc, ColumnsSchema, Company} from '../../companies/CompaniesUtil'
+import {Company} from '../../companies/CompaniesUtil'
 import {CompanyService} from '../../companies/company.service'
 
 @Component({
@@ -15,7 +15,9 @@ export class AddComponent implements OnInit {
 
     constructor(public dialogRef: MatDialogRef<AddComponent>,
         @Inject(MAT_DIALOG_DATA) public data: Company,
-        public dataService: CompanyService) { }
+        public dataService: CompanyService) {
+          console.log(data)
+         }
 
     formControl = new FormControl('', [
     Validators.required
@@ -40,8 +42,8 @@ export class AddComponent implements OnInit {
     this.dataService.addCompany(this.data);
     }
 
-    ngOnInit(): void {
-      throw new Error("Method not implemented.");
+    ngOnInit() {
+
     }
 
 
