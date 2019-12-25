@@ -3,6 +3,7 @@
   <button mat-menu-item [routerLink]="'/companies'">List</button>
 </mat-menu>
 
-<button mat-button [matMenuTriggerFor]="login" [routerLink]="'/login'">Login</button>
+<button *ngIf="loginFlag" mat-button [matMenuTriggerFor]="login" [routerLink]="'/login'">Login</button>
+<button *ngIf="!loginFlag" mat-button  (click) = "logout()">Logout</button>
 <mat-menu #login="matMenu" yPosition="below">
 </mat-menu>

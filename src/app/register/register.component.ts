@@ -6,7 +6,9 @@ import {AuthenticationService} from '../auth/authentication.service';
 import {AlertService} from '../alert/alert.service';
 import {FormControl, FormGroupDirective, NgForm} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
-
+import {Company, ColumnsSchema, columnsDesc} from '../companies/CompaniesUtil';
+import {UserColumnsDesc, UserColumnsSchema} from '../models/user';
+import {UserService} from '../user/user.service';
 
 @Component({
   selector: 'app-register',
@@ -18,29 +20,56 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   loading = false;
   submitted = false;
+  companycolumnsDesc: ColumnsSchema[];
+  userColumnsDesc : UserColumnsSchema[];
+  url_profile = '';
+  url_cl='';
+  unUsedColForCompany = ['id','isActive','registerdate','registrationexp'];
 
   constructor(
       private formBuilder: FormBuilder,
       private router: Router,
       private authenticationService: AuthenticationService,
-      //private userService: UserService,
+      private userService: UserService,
       private alertService: AlertService
   ) {
       // redirect to home if already logged in
       if (this.authenticationService.currentUserValue) {
           this.router.navigate(['/']);
       }
+      this.companycolumnsDesc = columnsDesc.filter(v=>this.unUsedColForCompany.indexOf(v.name) == -1)
+      this.userColumnsDesc = UserColumnsDesc.filter(v=> v && v.name !== 'id');
+  }
+
+  onSelectFile(event, fromPCL) {
+    if (event.target.files && event.target.files[0]) {
+      var reader = new FileReader();
+
+      reader.readAsDataURL(event.target.files[0]); // read file as data url
+
+      reader.onload = (event) => { // called once readAsDataURL is completed
+        if(fromPCL === "profile"){
+          this.url_profile = event.target["result"];
+        }else{
+          this.url_cl = event.target["result"];
+        }
+      }
+    }
   }
 
   ngOnInit() {
-      this.registerForm = this.formBuilder.group({
-          name: ['', Validators.required],
-          email: ['', [Validators.required,Validators.email]],
-          mobile: ['', [Validators.min(10), Validators.required]],
-          city: ['', Validators.required],
-          address:['', Validators.required],
-          password: ['', [Validators.required, Validators.minLength(6)]]
-      });
+    var validators = {};
+    this.userColumnsDesc.forEach(v => {
+      if(!validators.hasOwnProperty(v.name)){
+        validators[v.name] = v.validators;
+      }
+    })
+    this.companycolumnsDesc.forEach(v=>{
+      if(!validators.hasOwnProperty(v.name)){
+        validators[v.name] = v.validators;
+      }
+    });
+    this.registerForm = this.formBuilder.group(validators);
   }
 
   // convenience getter for easy access to form fields
@@ -53,9 +82,8 @@ export class RegisterComponent implements OnInit {
       if (this.registerForm.invalid) {
           return;
       }
-
       this.loading = true;
-      /*this.userService.register(this.registerForm.value)
+      this.userService.register(this.registerForm.value)
           .pipe(first())
           .subscribe(
               data => {
@@ -65,7 +93,7 @@ export class RegisterComponent implements OnInit {
               error => {
                   this.alertService.error(error);
                   this.loading = false;
-              });*/
+              });
   }
 }
 

@@ -1,5 +1,12 @@
 
-<form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="rigister-form">
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()" >
+
+  <div class="rigister-form-left">
+    <div class="form-group">
+        <label for="profileimg">Profile Image</label>
+        <img [src]="url_profile" height="200"> <br/>
+        <input type="file" formControlName="profileimg"  (change)="onSelectFile($event, 'profile')" />
+    </div>
     <div class="form-group">
         <label for="name">Name</label>
         <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
@@ -36,6 +43,14 @@
         </div>
     </div>
     <div class="form-group">
+        <label for="whatsup">WhatsUp Number</label>
+        <input type="text" formControlName="whatsup" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.whatsup.errors }" />
+        <div *ngIf="submitted && f.whatsup.errors" class="invalid-feedback">
+            <div *ngIf="f.whatsup.errors.required">whatsup is required</div>
+            <div *ngIf="f.whatsup.errors.minlength">Number must have 10 characters</div>
+        </div>
+    </div>
+    <div class="form-group">
         <label for="password">Password</label>
         <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
         <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
@@ -50,4 +65,26 @@
         </button>
         <a routerLink="/login" class="btn btn-link">Cancel</a>
     </div>
+  </div>
+  <div class="rigister-form-right">
+    <div class="form-group">
+        <label for="comapnylogo">Comapany Image</label>
+        <img [src]="url_cl" height="200"> <br/>
+        <input type="file" formControlName="comapnylogo"  (change)="onSelectFile($event,'cl')" />
+    </div>
+    <div class="form-group">
+      <label for="companyname">Company Name</label>
+      <input type="text" formControlName="companyname" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.companyname.errors }" />
+      <div *ngIf="submitted && f.companyname.errors" class="invalid-feedback">
+          <div *ngIf="f.companyname.errors.required">companyname is required</div>
+      </div>
+  </div>
+  <div class="form-group">
+    <label for="numberofdays">Number Of Days </label>
+    <input type="number" formControlName="numberofdays" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.numberofdays.errors }" />
+    <div *ngIf="submitted && f.numberofdays.errors" class="invalid-feedback">
+        <div *ngIf="f.numberofdays.errors.required">numberofdays is required</div>
+    </div>
+</div>
+  </div>
 </form>

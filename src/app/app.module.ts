@@ -28,6 +28,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AlertcComponent } from './alertc/alertc.component';
+import { UserComponent } from './user/user.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { AlertcComponent } from './alertc/alertc.component';
     EditComponent,
     LoginComponent,
     RegisterComponent,
-    AlertcComponent
+    AlertcComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,

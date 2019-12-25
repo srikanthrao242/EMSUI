@@ -6,11 +6,10 @@ import {RegisterComponent} from './register/register.component';
 import {AuthGuardService} from './helpers/auth-guard.service';
 
 const routes: Routes = [
-  //{ path: '',  canActivate: [AuthGuardService] },
-  { path: '', redirectTo: '/', pathMatch: 'full' },
+  { path: '', redirectTo: '/', pathMatch: 'full' , canActivate: [AuthGuardService]},
   { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
-  { path: 'companies', component: CompaniesComponent },
+  { path: 'register', component: RegisterComponent, canActivate: [AuthGuardService] },
+  { path: 'companies', component: CompaniesComponent , canActivate: [AuthGuardService]},
 
   // otherwise redirect to home
   { path: '**', redirectTo: ''}

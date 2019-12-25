@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthenticationService} from '../auth/authentication.service';
 
 @Component({
   selector: 'app-menus',
@@ -7,9 +8,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenusComponent implements OnInit {
 
-  constructor() { }
+  loginFlag = false;
+
+  constructor(
+    private authenticationService: AuthenticationService) {
+
+      if(authenticationService.currentUserValue){
+        this.loginFlag = false;
+      }else{
+        this.loginFlag = true;
+      }
+
+     }
 
   ngOnInit() {
+  }
+
+  logout(){
+    this.loginFlag = false;
+    this.authenticationService.logout();
   }
 
 }
