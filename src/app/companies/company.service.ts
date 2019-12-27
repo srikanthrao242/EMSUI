@@ -13,6 +13,8 @@ import {Company} from './CompaniesUtil'
 })
 export class CompanyService {
 
+  kind = 'CompanyService'
+
   private companyUrl = config.server.serverURL + '/api/companies';
 
   dataChange: BehaviorSubject<Company[]> = new BehaviorSubject<Company[]>([]);

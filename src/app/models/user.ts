@@ -1,6 +1,8 @@
 
 import { Validators } from '@angular/forms';
+
 export interface User{
+  kind: "User",
   address: string,
   city: string,
   name: string,
@@ -15,7 +17,8 @@ export interface User{
   signature: string,
   createdby: number,
   isActive: boolean,
-  password: string
+  password: string,
+  whatsup: string
 }
 
 export interface UserColumnsSchema{
@@ -46,6 +49,23 @@ export interface UsreRegisterSchema{
   comapnylogo: string
 }
 
+
+export interface AddUserSchema{
+  name: string,
+  placeholder: string,
+  type:string
+}
+
+export const addUser: AddUserSchema[] = [
+  { name: 'name', placeholder: 'Name', type:'text'},
+  { name: 'address', placeholder: 'Address', type:'text'},
+  { name: 'city', placeholder: 'City', type:'text'},
+  { name: 'mobile', placeholder: 'Mobile', type:'text'},
+  { name: 'email', placeholder: 'Email', type:'text'},
+  { name: 'whatsup', placeholder: 'whatsup', type:'text'}
+]
+
+
 export const UserColumnsDesc: UserColumnsSchema[] = [
   { name: 'id', label: 'id' , type:'number',validators: ['']},
   { name: 'name', label: 'Name', type: 'text' , validators: ['', Validators.required]},
@@ -61,6 +81,7 @@ export const UserColumnsDesc: UserColumnsSchema[] = [
   { name: 'signature', label: 'Signature' , type: 'text', validators: ['']},
   { name: 'createdby', label: 'Created By', type: 'text' , validators: ['']},
   { name: 'isActive', label: 'Is Active' , type: 'text', validators: ['']},
+  { name: 'whatsup', label: 'whatsup' , type: 'text', validators: ['']},
   { name: 'password', label: 'Password' , type: 'password', validators: ['', [Validators.required, Validators.minLength(6)]]}
 ];
 

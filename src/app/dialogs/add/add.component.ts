@@ -1,8 +1,10 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {FormControl, Validators} from '@angular/forms';
-import {Company} from '../../companies/CompaniesUtil'
+import { addCompany} from '../../companies/CompaniesUtil'
 import {CompanyService} from '../../companies/company.service'
+import { addUser } from 'src/app/models/user';
+import { UserService } from 'src/app/user/user.service';
 
 @Component({
   selector: 'app-add',
@@ -13,10 +15,24 @@ import {CompanyService} from '../../companies/company.service'
 export class AddComponent implements OnInit {
 
 
+  addTitle = null
+  columns = null
     constructor(public dialogRef: MatDialogRef<AddComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: Company,
-        public dataService: CompanyService) {
+        @Inject(MAT_DIALOG_DATA) public data: any,
+        public cmpDataService: CompanyService,
+        public  userDataService : UserService) {
           console.log(data)
+          switch (this.data.kind){
+            case "Company" :
+               this.columns = addCompany;
+               this.addTitle = "Add New Company";
+            break;
+            case "User" :
+                this.columns = addUser;
+                this.addTitle = "Add New User";
+            break;
+          }
+
          }
 
     formControl = new FormControl('', [
@@ -39,7 +55,12 @@ export class AddComponent implements OnInit {
     }
 
     public confirmAdd(): void {
-    this.dataService.addCompany(this.data);
+      switch (this.data.kind){
+        case "Company" : this.cmpDataService.addCompany(this.data);
+        break;
+        case "User" : this.userDataService.addUser(this.data);
+        break;
+      }
     }
 
     ngOnInit() {

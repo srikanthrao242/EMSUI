@@ -1,49 +1,12 @@
 <div class="container">
-    <h3 mat-dialog-title>Add new Company</h3>
+    <h3 mat-dialog-title>{{addTitle}}</h3>
 
     <form class="mat-dialog-content" (ngSubmit)="submit" #formControl="ngForm">
 
-      <!--Textarea for demo purposes-->
-      <div class="form">
+      <div class="form" *ngFor="let column of columns">
         <mat-form-field color="accent">
-          <input matInput #input class="form-control" placeholder="Company Name" [(ngModel)]="data.companyname" name="companyname" required >
+          <input matInput #inputstate class="form-control" [placeholder]="column.placeholder" [(ngModel)]="data[column.name]" [type]="column.type" [name]="column.name" maxlength="100" required >
           <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-        </mat-form-field>
-      </div>
-
-      <!--Contains mat-hint for characters count and has maxLengt set-->
-      <div class="form">
-        <mat-form-field color="accent">
-          <textarea matInput #inputstate class="form-control" placeholder="Address" [(ngModel)]="data.address" name="address" maxlength="100" required ></textarea>
-          <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-        </mat-form-field>
-      </div>
-
-      <div class="form">
-        <mat-form-field color="accent">
-          <input matInput #inputstate class="form-control" placeholder="City" [(ngModel)]="data.city" name="city" maxlength="100" required >
-          <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-        </mat-form-field>
-      </div>
-
-      <div class="form">
-        <mat-form-field color="accent">
-          <input matInput #inputstate class="form-control" placeholder="Mobile" [(ngModel)]="data.mobile" name="mobile" maxlength="100" required >
-          <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-          <mat-hint align="end">{{inputstate.value?.length || 0}}/10</mat-hint>
-        </mat-form-field>
-      </div>
-
-      <div class="form">
-        <mat-form-field color="accent">
-          <input matInput #inputstate class="form-control" placeholder="Email" [(ngModel)]="data.email" name="email" maxlength="100" required >
-          <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-        </mat-form-field>
-      </div>
-
-      <div class="form">
-        <mat-form-field color="accent">
-          <input matInput placeholder="Days To add" [(ngModel)]="data.numberofdays" name="numberofdays" type="number" required>
         </mat-form-field>
       </div>
 

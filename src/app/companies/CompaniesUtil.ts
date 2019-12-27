@@ -1,6 +1,8 @@
 
 import { Validators } from '@angular/forms';
+
 export interface Company{
+  kind:"Company",
   id : number,
   companyname:string,
   address:String,
@@ -21,6 +23,21 @@ export interface ColumnsSchema{
   type: string,
   validators: Validators[]
 }
+
+export interface AddCompanySchema{
+  name: string,
+  placeholder: string,
+  type:string
+}
+
+export const addCompany: AddCompanySchema[] = [
+  { name: 'companyname', placeholder: 'Company Name', type:'text'},
+  { name: 'address', placeholder: 'Address', type:'text'},
+  { name: 'city', placeholder: 'City', type:'text'},
+  { name: 'mobile', placeholder: 'Mobile', type:'text'},
+  { name: 'email', placeholder: 'Email', type:'text'},
+  {name: 'numberofdays', placeholder: 'Days to add', type:'number'},
+]
 
 export const columnsDesc: ColumnsSchema[] = [
   { name: 'id', label: 'id', type: 'number' ,validators: ['']},

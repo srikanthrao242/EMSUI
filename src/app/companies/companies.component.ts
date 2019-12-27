@@ -61,7 +61,7 @@ export class CompaniesComponent implements OnInit {
 
   addNew(issue: Company) {
     const dialogRef = this.dialog.open(AddComponent, {
-      data: {}
+      data: {kind:'Company'}
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -93,7 +93,7 @@ export class CompaniesComponent implements OnInit {
     // index row is used just for debugging proposes and can be removed
     this.index = i;
     const dialogRef = this.dialog.open(EditComponent, {
-      data: {id: id, companyname: companyname, address: address,
+      data: {kind:'Company',id: id, companyname: companyname, address: address,
         city: city, mobile: mobile, email: email, numberofdays: numberofdays, whatsup: whatsup, registrationexp: this.addDays(registerdate, numberofdays)}
     });
 
@@ -117,7 +117,7 @@ export class CompaniesComponent implements OnInit {
     this.index = i;
     this.id = id;
     const dialogRef = this.dialog.open(DeleteComponent, {
-      data: {id: id, companyname: companyname, city: city, mobile: mobile}
+      data: {kind:'Company', id: id, companyname: companyname, city: city, mobile: mobile}
     });
 
     dialogRef.afterClosed().subscribe(result => {
