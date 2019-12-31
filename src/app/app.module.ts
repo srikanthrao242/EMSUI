@@ -18,8 +18,11 @@ import { AddComponent } from './dialogs/add/add.component';
 import { DeleteComponent } from './dialogs/delete/delete.component';
 import { EditComponent } from './dialogs/edit/edit.component';
 
-import {MatGridListModule} from '@angular/material'
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatGridListModule} from '@angular/material';
+import {MatCardModule} from '@angular/material/card';
 
+import { FlexLayoutModule } from "@angular/flex-layout";
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -29,6 +32,8 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AlertcComponent } from './alertc/alertc.component';
 import { UserComponent } from './user/user.component';
+import { EmployeeComponent } from './employee/employee.component';
+import { ProfileComponent } from './employee/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +46,9 @@ import { UserComponent } from './user/user.component';
     LoginComponent,
     RegisterComponent,
     AlertcComponent,
-    UserComponent
+    UserComponent,
+    EmployeeComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +67,10 @@ import { UserComponent } from './user/user.component';
     MatInputModule,
     MatSortModule,
     MatToolbarModule,
-    MatGridListModule
+    MatGridListModule,
+    MatTabsModule,
+    MatCardModule,
+    FlexLayoutModule
   ],
   providers: [],
   bootstrap: [

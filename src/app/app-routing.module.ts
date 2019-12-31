@@ -5,6 +5,8 @@ import {LoginComponent} from './login/login.component';
 import {RegisterComponent} from './register/register.component';
 import {AuthGuardService} from './helpers/auth-guard.service';
 import {UserComponent} from './user/user.component'
+import { EmployeeComponent } from './employee/employee.component';
+import { ProfileComponent } from './employee/profile/profile.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full' , canActivate: [AuthGuardService]},
@@ -12,6 +14,8 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent},
   { path: 'companies', component: CompaniesComponent , canActivate: [AuthGuardService]},
   { path: 'user', component: UserComponent , canActivate: [AuthGuardService]},
+  { path: 'employees', component: EmployeeComponent , canActivate: [AuthGuardService]},
+  { path: 'profile', component: ProfileComponent , canActivate: [AuthGuardService]},
 
   // otherwise redirect to home
   { path: '**', redirectTo: ''}
