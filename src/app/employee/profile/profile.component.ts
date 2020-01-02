@@ -3,6 +3,10 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import Employee, {EmployeeColumnsDesc, Salary, BankDetails} from '../../models/employees';
 import { Router } from '@angular/router';
 import { EmployeeService } from '../employee.service';
+import {addDaysFromDate} from '../../helpers/util';
+import { AuthenticationService } from 'src/app/auth/authentication.service';
+import { first } from 'rxjs/operators';
+import { AlertService } from 'src/app/alert/alert.service';
 
 @Component({
   selector: 'app-profile',
@@ -20,12 +24,16 @@ export class ProfileComponent implements OnInit {
   loading = false;
   submitted = false;
 
+
+
   employeeProfile : FormGroup ;
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private employeeService: EmployeeService
+    private employeeService: EmployeeService,
+    private authServices : AuthenticationService,
+    private alertService: AlertService
     ) { }
 
 
@@ -87,10 +95,6 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  mapToEmployee(json){
-
-  }
-
   mapToInputForAdd(){
     var result = {
       'employee' : {} as Employee,
@@ -104,18 +108,58 @@ export class ProfileComponent implements OnInit {
     result.employee.city = json.city;
     result.employee.address = json.address;
     result.employee.mobile = json.mobile;
-    result.employee.dateOfJoining = json.dateOfJoining;
+    result.employee.dateOfJoining = addDaysFromDate(json.dateOfJoining,0);
+    result.employee.email = json.email;
+    result.employee.gender = json.gender;
+    result.employee.designation = json.designation;
+    result.employee.employeeType = json.employeeType;
+    result.employee.qualification = json.qualification;
+    result.employee.companyId = this.authServices.currentUserValue.companyid;
 
+    result.salary.allowance = json.allowance;
+    result.salary.allowanceDesc = json.allowanceDesc;
+    result.salary.comments = json.comments;
+    result.salary.deduction = json.deduction;
+    result.salary.deductionDesc = json.deductionDesc;
+    result.salary.salAfterTax = json.salAfterTax;
+    result.salary.salBeforeTax = json.salBeforeTax;
+    result.salary.salaryPerHour = json.salaryPerHour;
+    result.salary.salaryPerMon = json.salaryPerMon;
+    result.salary.tax = json.tax;
+    result.salary.taxPercentage = json.taxPercentage;
+
+    result.bankDetails.accNo = json.accNo;
+    result.bankDetails.bankName = json.bankName;
+    result.bankDetails.branchCode = json.branchCode;
+
+    return result;
   }
 
   onSubmit() {
     this.submitted = true;
-
+    this.employeeProfile.patchValue({
+      salaryPerHour : this.salaryPH,
+      salAfterTax:this.salaryAfterTax,
+      salBeforeTax: this.salaryBeforeTax,
+      tax : this.totalTax
+    });
+    console.log(this.employeeProfile.value)
     // stop here if form is invalid
     if (this.employeeProfile.invalid) {
         return;
     }
     this.loading = true;
+    this.employeeService.addEmployees(this.mapToInputForAdd())
+    .pipe(first())
+    .subscribe(
+        data => {
+            this.alertService.success('Registration successful', true);
+            this.router.navigate(['/employees']);
+        },
+        error => {
+            this.alertService.error(error);
+            this.loading = false;
+        });
 
 
   }

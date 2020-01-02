@@ -35,6 +35,7 @@ import { AlertcComponent } from './alertc/alertc.component';
 import { UserComponent } from './user/user.component';
 import { EmployeeComponent } from './employee/employee.component';
 import { ProfileComponent } from './employee/profile/profile.component';
+import { ContextmenuComponent } from './employee/contextmenu/contextmenu.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { ProfileComponent } from './employee/profile/profile.component';
     AlertcComponent,
     UserComponent,
     EmployeeComponent,
-    ProfileComponent
+    ProfileComponent,
+    ContextmenuComponent
   ],
   imports: [
     BrowserModule,

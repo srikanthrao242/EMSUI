@@ -44,8 +44,8 @@ export class EmployeeService {
     });
   }
 
-  addEmployees():void {
-
+  addEmployees(employeeDetails) {
+    return this.http.post(`${this.employeeUrl}/add-employee`, employeeDetails);
   }
 
   private handleError<T> (operation = 'operation', result?: T) {
