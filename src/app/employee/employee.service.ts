@@ -44,6 +44,10 @@ export class EmployeeService {
     });
   }
 
+  addEmployees():void {
+
+  }
+
   private handleError<T> (operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
 

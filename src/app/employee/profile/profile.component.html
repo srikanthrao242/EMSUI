@@ -1,11 +1,166 @@
-<mat-tab-group>
-  <mat-tab label="profile">
-    <mat-card>
-      <mat-card-content class="container">
-
-      </mat-card-content>
-    </mat-card>
-  </mat-tab>
-  <mat-tab label="salary"> add salary details </mat-tab>
-  <mat-tab label="bank"> add bank details </mat-tab>
-</mat-tab-group>
+<div>
+  <mat-toolbar color="primary">
+    <span>Profile Settings </span>
+    <span class="spacer"></span>
+  </mat-toolbar>
+  <form [formGroup]="employeeProfile" (ngSubmit)="onSubmit()">
+    <mat-tab-group>
+      <mat-tab label="PROFILE">
+        <label for="profileimg">Profile Image</label>
+        <img [src]="url_profile" height="100"> <br/>
+        <input type="file" (change)="onSelectFile($event)" />
+        <div fxLayout="row" fxLayoutGap ="5%" >
+          <div fxFlex="50%">
+            <div class="profile-container">
+              <mat-form-field color="accent">
+                <input matInput class="form-control" placeholder="First Name" formControlName = "firstName" maxlength="100" required >
+                <mat-error *ngIf="f.firstName.invalid">{{getErrorMessage()}}</mat-error>
+              </mat-form-field>
+              <mat-form-field color="accent">
+                <input matInput class="form-control" placeholder="Middile Name" maxlength="100" >
+              </mat-form-field>
+              <mat-form-field color="accent">
+                <input matInput class="form-control" placeholder="Last Name" formControlName = "lastName" maxlength="100" required >
+                <mat-error *ngIf="f.lastName.invalid">{{getErrorMessage()}}</mat-error>
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput type="email" placeholder="Email" formControlName="email" required>
+                <mat-error *ngIf="f.email.invalid">{{getErrorMessage()}}</mat-error>
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput placeholder="Mobile" type="tel" formControlName="mobile" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
+                <mat-error *ngIf="f.mobile.invalid">{{getErrorMessage()}}</mat-error>
+              </mat-form-field>
+              <mat-form-field color="accent">
+                <input matInput class="form-control" placeholder="City" formControlName="city" maxlength="100" required >
+                <mat-error *ngIf="f.city.invalid">{{getErrorMessage()}}</mat-error>
+              </mat-form-field>
+              <mat-form-field color="accent">
+                <input matInput class="form-control" placeholder="Address" formControlName="address" maxlength="100" required >
+                <mat-error *ngIf="f.address.invalid">{{getErrorMessage()}}</mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div fxFlex="50%" >
+            <div class="profile-container-right">
+            <mat-form-field>
+              <mat-label>Gender</mat-label>
+              <mat-select formControlName="gender" required>
+                <mat-option value = "Male">Male</mat-option>
+                <mat-option value = "Female">Female</mat-option>
+              </mat-select>
+              <mat-error *ngIf="f.gender.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+            <mat-form-field color="accent">
+              <input matInput class="form-control" formControlName="designation" placeholder="Designation" maxlength="100" required >
+              <mat-error *ngIf="f.designation.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Employee Type</mat-label>
+              <mat-select formControlName="employeeType" required>
+                <mat-option value = "Permanent">Permanent</mat-option>
+                <mat-option value = "Trainee">Trainee</mat-option>
+              </mat-select>
+              <mat-error *ngIf="f.employeeType.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+            <mat-form-field color="accent">
+              <input matInput class="form-control" formControlName="qualification" placeholder="Qualification" maxlength="100" required >
+              <mat-error *ngIf="f.qualification.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput [matDatepicker]="dojpicker" formControlName="dateOfJoining" placeholder="Date Of Joining" required>
+              <mat-datepicker-toggle matSuffix [for]="dojpicker"></mat-datepicker-toggle>
+              <mat-datepicker #dojpicker></mat-datepicker>
+              <mat-error *ngIf="f.dateOfJoining.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput [matDatepicker]="dorpicker" formControlName="dateOfRelieving" placeholder="Date Of Releiving">
+              <mat-datepicker-toggle matSuffix [for]="dorpicker"></mat-datepicker-toggle>
+              <mat-datepicker #dorpicker></mat-datepicker>
+            </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="SALARY">
+        <div fxLayout="row" fxLayoutGap ="5%" >
+          <div fxFlex="50%">
+            <div class="profile-container">
+              <mat-form-field>
+                <input matInput type="number" [value]="salaryPH" formControlName="salaryPerHour" placeholder="Salary / Hour"  required>
+                <mat-error *ngIf="f.salaryPerHour.invalid">{{getErrorMessage()}}</mat-error>
+              </mat-form-field>
+              <mat-form-field>
+                <input #allowanceper matInput type="number" formControlName="allowance" placeholder="Allowance %" (keyup)="onAllowance(allowanceper.value)" required>
+                <mat-error *ngIf="f.allowance.invalid">{{getErrorMessage()}}</mat-error>
+              </mat-form-field>
+              <mat-form-field>
+                <input #deductionperc matInput formControlName="deduction" type="number" placeholder="Deduction %" (keyup)="onDeduction(deductionperc.value)" required>
+                <mat-error *ngIf="f.deduction.invalid">{{getErrorMessage()}}</mat-error>
+              </mat-form-field>
+              <mat-form-field>
+                <input #taxPerc matInput type="number" formControlName="taxPercentage" placeholder="Tax %" (keyup)="onKey(taxPerc.value)"required>
+                <mat-error *ngIf="f.taxPercentage.invalid">{{getErrorMessage()}}</mat-error>
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput type="number" formControlName="salBeforeTax" [value]="salaryBeforeTax" placeholder="Salary Before Tax">
+                <mat-error *ngIf="f.salBeforeTax.invalid">{{getErrorMessage()}}</mat-error>
+              </mat-form-field>
+              <mat-form-field>
+                <textarea matInput formControlName="comments" placeholder="Comments"></textarea>
+                <mat-error *ngIf="f.comments.invalid">{{getErrorMessage()}}</mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div fxFlex="50%">
+            <div class="profile-container">
+              <mat-form-field>
+                <input matInput #salaryPM type="number" formControlName="salaryPerMon" [value]="actualSalary" placeholder="Salary / Month" (keyup)="onSalaryKey(salaryPM.value)" required>
+                <mat-error *ngIf="f.salaryPerMon.invalid">{{getErrorMessage()}}</mat-error>
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput formControlName="allowanceDesc" placeholder="Allowances Description" required>
+                <mat-error *ngIf="f.allowanceDesc.invalid">{{getErrorMessage()}}</mat-error>
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput formControlName="deductionDesc" placeholder="Deduction Description" required>
+                <mat-error *ngIf="f.deductionDesc.invalid">{{getErrorMessage()}}</mat-error>
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput type="number" formControlName="tax" [value] = "totalTax" placeholder="Total Tax">
+                <mat-error *ngIf="f.tax.invalid">{{getErrorMessage()}}</mat-error>
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput type="number" formControlName="salAfterTax" [value]="salaryAfterTax" placeholder="Salary After Tax">
+                <mat-error *ngIf="f.salAfterTax.invalid">{{getErrorMessage()}}</mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="BANK DETAILS">
+        <div fxLayout="column" >
+          <mat-form-field color="accent">
+            <input matInput class="form-control" formControlName="bankName" placeholder="Branch Name" maxlength="100" required >
+            <mat-error *ngIf="f.bankName.invalid">{{getErrorMessage()}}</mat-error>
+          </mat-form-field>
+          <mat-form-field color="accent">
+            <input matInput class="form-control" formControlName="branchCode" placeholder="Bank Account Number" maxlength="100" required >
+            <mat-error *ngIf="f.branchCode.invalid">{{getErrorMessage()}}</mat-error>
+          </mat-form-field>
+          <mat-form-field color="accent">
+            <input matInput formControlName="accNo" class="form-control" placeholder="Branch Code" maxlength="100" required >
+            <mat-error *ngIf="f.accNo.invalid">{{getErrorMessage()}}</mat-error>
+          </mat-form-field>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+    <div class="form-group button-submit">
+        <button [disabled]="loading" class="btn btn-primary">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            Add
+        </button>
+        <a routerLink="/employees" class="btn btn-link">Cancel</a>
+    </div>
+  </form>
+</div>
