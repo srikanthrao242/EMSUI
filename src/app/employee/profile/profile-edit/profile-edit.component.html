@@ -1,0 +1,89 @@
+<mat-dialog-content class="mat-typography" >
+<div>
+  <mat-toolbar color="primary">
+    <span>Profile Settings </span>
+    <span class="spacer"></span>
+  </mat-toolbar>
+  <form [formGroup]="employeeProfile">
+    <label for="profileimg">Profile Image</label>
+    <img [src]="url_profile" height="100"> <br/>
+    <input type="file" (change)="onSelectFile($event)" />
+    <div fxLayout="row" fxLayoutGap ="5%" >
+      <div fxFlex="50%">
+        <div class="profile-container">
+          <mat-form-field color="accent">
+            <input matInput #inputstate [(ngModel)]="data.firstName" class="form-control" placeholder="First Name"  [formControl] = "employeeProfile.controls.firstName" maxlength="100" required >
+            <mat-error *ngIf="f.firstName.invalid">{{getErrorMessage()}}</mat-error>
+          </mat-form-field>
+          <mat-form-field color="accent">
+            <input matInput  #inputstate [(ngModel)]="data.middleName" class="form-control"  [formControl] = "employeeProfile.controls.middleName" placeholder="Middile Name" maxlength="100" >
+          </mat-form-field>
+          <mat-form-field color="accent">
+            <input matInput #inputstate [(ngModel)]="data.lastName" class="form-control" placeholder="Last Name" [formControl] = "employeeProfile.controls.lastName" maxlength="100" required >
+            <mat-error *ngIf="f.lastName.invalid">{{getErrorMessage()}}</mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput #inputstate [(ngModel)]="data.email" type="email" placeholder="Email" [formControl] = "employeeProfile.controls.email" required>
+            <mat-error *ngIf="f.email.invalid">{{getErrorMessage()}}</mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput #inputstate [(ngModel)]="data.mobile" placeholder="Mobile" [formControl] = "employeeProfile.controls.mobile"  required>
+            <mat-error *ngIf="f.mobile.invalid">{{getErrorMessage()}}</mat-error>
+          </mat-form-field>
+          <mat-form-field color="accent">
+            <input matInput #inputstate [(ngModel)]="data.city" class="form-control" placeholder="City" [formControl] = "employeeProfile.controls.city" maxlength="100" required >
+            <mat-error *ngIf="f.city.invalid">{{getErrorMessage()}}</mat-error>
+          </mat-form-field>
+          <mat-form-field color="accent">
+            <input matInput #inputstate [(ngModel)]="data.address" class="form-control" placeholder="Address" [formControl] = "employeeProfile.controls.address" maxlength="100" required >
+            <mat-error *ngIf="f.address.invalid">{{getErrorMessage()}}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxFlex="50%" >
+        <div class="profile-container-right">
+        <mat-form-field>
+          <mat-label>Gender</mat-label>
+          <mat-select #inputstate [(ngModel)]="data.gender" [formControl] = "employeeProfile.controls.gender" required>
+            <mat-option value = "Male">Male</mat-option>
+            <mat-option value = "Female">Female</mat-option>
+          </mat-select>
+          <mat-error *ngIf="f.gender.invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+        <mat-form-field  color="accent">
+          <input matInput #inputstate [(ngModel)]="data.designation" class="form-control" [formControl] = "employeeProfile.controls.designation" placeholder="Designation" maxlength="100" required >
+          <mat-error *ngIf="f.designation.invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Employee Type</mat-label>
+          <mat-select #inputstate [(ngModel)]="data.employeeType" [formControl] = "employeeProfile.controls.employeeType" required>
+            <mat-option value = "Permanent">Permanent</mat-option>
+            <mat-option value = "Trainee">Trainee</mat-option>
+          </mat-select>
+          <mat-error *ngIf="f.employeeType.invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+        <mat-form-field color="accent">
+          <input matInput #inputstate [(ngModel)]="data.qualification" class="form-control" [formControl] = "employeeProfile.controls.qualification" placeholder="Qualification" maxlength="100" required >
+          <mat-error *ngIf="f.qualification.invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput #inputstate [(ngModel)]="data.dateOfJoining" [matDatepicker]="dojpicker" [formControl] = "employeeProfile.controls.dateOfJoining" placeholder="Date Of Joining" required>
+          <mat-datepicker-toggle matSuffix [for]="dojpicker"></mat-datepicker-toggle>
+          <mat-datepicker #dojpicker></mat-datepicker>
+          <mat-error *ngIf="f.dateOfJoining.invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput #inputstate [(ngModel)]="data.dateOfRelieving" [matDatepicker]="dorpicker" [formControl] = "employeeProfile.controls.dateOfRelieving" placeholder="Date Of Releiving">
+          <mat-datepicker-toggle matSuffix [for]="dorpicker"></mat-datepicker-toggle>
+          <mat-datepicker #dorpicker></mat-datepicker>
+        </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial (click)="onSubmit($event)">Edit</button>
+</mat-dialog-actions>

@@ -7,6 +7,8 @@ import {DataSource} from '@angular/cdk/collections';
 import {BehaviorSubject, fromEvent, merge, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import { EmployeeService } from './employee.service';
+import { ContextmenuComponent } from './contextmenu/contextmenu.component';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-employee',
@@ -15,7 +17,7 @@ import { EmployeeService } from './employee.service';
 })
 export class EmployeeComponent implements OnInit {
 
-  constructor(public httpClient: HttpClient) { }
+  constructor(public httpClient: HttpClient, public _matDialog: MatDialog) { }
 
   employeeDatabase: EmployeeService | null;
   dataSource: EmployeeDataSource | null;
@@ -52,6 +54,17 @@ export class EmployeeComponent implements OnInit {
         }
         this.dataSource.filter = this.filter.nativeElement.value;
       });
+  }
+
+  onShowDialog(evt, id:number): void {
+    console.log(id);
+    const target = new ElementRef(evt.currentTarget);
+    const dialogRef = this._matDialog.open(ContextmenuComponent, {
+      data: { trigger: target , empId:id}
+    });
+    dialogRef.afterClosed().subscribe( _res => {
+      console.log(_res);
+    });
   }
 
 }

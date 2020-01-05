@@ -1,42 +1,83 @@
-import { Component, ViewChild } from '@angular/core';
-import { MatMenuTrigger } from '@angular/material';
+import { Component, ElementRef, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogConfig, MatDialogRef, MatDialog } from '@angular/material';
 
-import {EmpSalBank} from '../../models/employees';
+import { EmployeeService } from '../employee.service';
+import { ProfileEditComponent } from '../profile/profile-edit/profile-edit.component';
+import { SalaryEditComponent } from '../profile/salary-edit/salary-edit.component';
+import { BankEditComponent } from '../profile/bank-edit/bank-edit.component';
 
 @Component({
   selector: 'app-contextmenu',
   templateUrl: './contextmenu.component.html',
   styleUrls: ['./contextmenu.component.css']
 })
-export class ContextmenuComponent {
+export class ContextmenuComponent implements OnInit{
 
-  constructor(items:EmpSalBank) { }
-
-
-  @ViewChild(MatMenuTrigger)
-  contextMenu: MatMenuTrigger;
-
-  contextMenuPosition = { x: '0px', y: '0px' };
-
-  onClick(event: MouseEvent, item: EmpSalBank) {
-    event.preventDefault();
-    this.contextMenuPosition.x = event.clientX + 'px';
-    this.contextMenuPosition.y = event.clientY + 'px';
-   // this.contextMenu.menuData = { 'item': item };
-    this.contextMenu.menu.focusFirstItem('mouse');
-    this.contextMenu.openMenu();
+  private readonly _matDialogRef: MatDialogRef<ContextmenuComponent>;
+  private readonly triggerElementRef: ElementRef;
+  private employeeServices:EmployeeService;
+  private employeeId: number;
+  constructor(_matDialogRef: MatDialogRef<ContextmenuComponent>,
+              @Inject(MAT_DIALOG_DATA) data: { trigger: ElementRef , empId: number},
+              employeeServices: EmployeeService,
+              public dialog: MatDialog) {
+    this._matDialogRef = _matDialogRef;
+    this.triggerElementRef = data.trigger;
+    this.employeeId = data.empId;
+    this.employeeServices = employeeServices;
   }
 
-  editProfile(item: EmpSalBank) {
+  ngOnInit() {
+    const matDialogConfig: MatDialogConfig = new MatDialogConfig();
+    const rect = this.triggerElementRef.nativeElement.getBoundingClientRect();
+    matDialogConfig.position = { left: `${rect.left - 50}px`, top: `${rect.bottom - 50}px` };
+    matDialogConfig.width = '150px';
+    matDialogConfig.height = '150px';
+    this._matDialogRef.updateSize(matDialogConfig.width, matDialogConfig.height);
+    this._matDialogRef.updatePosition(matDialogConfig.position);
+  }
+  cancel(): void {
+    this._matDialogRef.close(null);
+  }
+
+  editProfile() {
+    this._matDialogRef.close(null);
+    this.employeeServices.getEmployeeProfile(this.employeeId)
+    .pipe()
+    .subscribe(
+        d => {
+          this.dialog.open(ProfileEditComponent, {data: d});
+        },
+        error => {
+          console.log(error);
+        });
 
   }
 
-  editSalary(item: EmpSalBank) {
-
+  editSalary() {
+    this._matDialogRef.close(null);
+    this.employeeServices.getSalaryByEmpId(this.employeeId)
+    .pipe()
+    .subscribe(
+        d => {
+          this.dialog.open(SalaryEditComponent, {data: d});
+        },
+        error => {
+          console.log(error);
+        });
   }
 
-  editBankDetails(item: EmpSalBank){
-
+  editBankDetails(){
+    this._matDialogRef.close(null);
+    this.employeeServices.getBankDetailsByEmpId(this.employeeId)
+    .pipe()
+    .subscribe(
+        d => {
+          this.dialog.open(BankEditComponent, {data: d});
+        },
+        error => {
+          console.log(error);
+        });
   }
 
 }

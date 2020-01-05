@@ -1,0 +1,30 @@
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  font-family: Roboto, Arial, sans-serif;
+}
+
+.profile-container > * {
+  width: 100%;
+}
+
+.profile-container-right {
+  display: flex;
+  flex-direction: column;
+  font-family: Roboto, Arial, sans-serif;
+  margin-top: 8%;
+}
+
+.profile-container-right > * {
+  width: 100%;
+}
+
+.button-submit {
+  margin-left: 50%;
+  margin-top: 2%;
+}
+
+.cdk-overlay-pane, .md-overlay-pane {
+  height: auto !important;
+}

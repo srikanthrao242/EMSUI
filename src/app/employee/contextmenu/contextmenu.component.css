@@ -1,0 +1,8 @@
+.context-menu-container {
+  border-radius: 4px;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  min-height: inherit;
+  max-height: inherit;
+}

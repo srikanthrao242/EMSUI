@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import Employee from '../models/employees';
+import Employee, { Salary, BankDetails } from '../models/employees';
 import { config } from '../Config';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -10,9 +10,15 @@ import { catchError } from 'rxjs/operators';
 })
 export class EmployeeService {
 
-  userId = JSON.parse(localStorage.getItem('currentUser')).id;
+  user = JSON.parse(localStorage.getItem('currentUser'));
+
+  userId = this.user.id;
 
   private employeeUrl = `${config.server.serverURL}/api/employees/${this.userId}`;
+
+  private salaryUrl = `${config.server.serverURL}/api/salaries/${this.userId}`;
+
+  private bankUrl = `${config.server.serverURL}/api/banks/${this.userId}`;
 
   dataChange: BehaviorSubject<Employee[]> = new BehaviorSubject<Employee[]>([]);
 
@@ -44,8 +50,32 @@ export class EmployeeService {
     });
   }
 
+  getEmployeeProfile(id:number) {
+    return this.http.get<Employee>(`${this.employeeUrl}/employee/${id}`);
+  }
+
+  getSalaryByEmpId(id:number){
+    return this.http.get<Salary>(`${this.salaryUrl}/salary/${id}`);
+  }
+
+  getBankDetailsByEmpId(id:number){
+    return this.http.get<BankDetails>(`${this.bankUrl}/bank/${id}`);
+  }
+
   addEmployees(employeeDetails) {
     return this.http.post(`${this.employeeUrl}/add-employee`, employeeDetails);
+  }
+
+  updateEmployeeProfile(emp:Employee){
+    return this.http.put<any>(`${this.employeeUrl}`, emp);
+  }
+
+  updateSalaryProfile(sal:Salary){
+    return this.http.put<any>(`${this.salaryUrl}`, sal);
+  }
+
+  updateBankProfile(bank:BankDetails){
+    return this.http.put<any>(`${this.bankUrl}`, bank);
   }
 
   private handleError<T> (operation = 'operation', result?: T) {

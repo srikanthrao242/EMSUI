@@ -1,0 +1,28 @@
+<mat-dialog-content class="mat-typography" >
+  <div>
+    <mat-toolbar color="primary">
+      <span>Bank Settings </span>
+      <span class="spacer"></span>
+    </mat-toolbar>
+    <form [formGroup]="employeeProfile">
+      <div fxLayout="column" >
+        <mat-form-field color="accent">
+          <input matInput class="form-control"  #inputstate [(ngModel)]="data.bankName"  [formControl] = "employeeProfile.controls.bankName" placeholder="Branch Name" maxlength="100" required >
+          <mat-error *ngIf="f.bankName.invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+        <mat-form-field color="accent">
+          <input matInput  #inputstate [(ngModel)]="data.branchCode"  class="form-control" [formControl] = "employeeProfile.controls.branchCode" placeholder="Bank Account Number" maxlength="100" required >
+          <mat-error *ngIf="f.branchCode.invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+        <mat-form-field color="accent">
+          <input matInput  #inputstate [(ngModel)]="data.accNo"  [formControl] = "employeeProfile.controls.accNo" class="form-control" placeholder="Branch Code" maxlength="100" required >
+          <mat-error *ngIf="f.accNo.invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial (click)="onSubmit($event)">Edit</button>
+  </mat-dialog-actions>

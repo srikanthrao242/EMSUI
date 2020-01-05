@@ -36,6 +36,9 @@ import { UserComponent } from './user/user.component';
 import { EmployeeComponent } from './employee/employee.component';
 import { ProfileComponent } from './employee/profile/profile.component';
 import { ContextmenuComponent } from './employee/contextmenu/contextmenu.component';
+import { ProfileEditComponent } from './employee/profile/profile-edit/profile-edit.component';
+import { SalaryEditComponent } from './employee/profile/salary-edit/salary-edit.component';
+import { BankEditComponent } from './employee/profile/bank-edit/bank-edit.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +54,10 @@ import { ContextmenuComponent } from './employee/contextmenu/contextmenu.compone
     UserComponent,
     EmployeeComponent,
     ProfileComponent,
-    ContextmenuComponent
+    ContextmenuComponent,
+    ProfileEditComponent,
+    SalaryEditComponent,
+    BankEditComponent
   ],
   imports: [
     BrowserModule,
@@ -87,7 +93,11 @@ import { ContextmenuComponent } from './employee/contextmenu/contextmenu.compone
     EditComponent,
     LoginComponent,
     RegisterComponent,
-    AlertcComponent
+    AlertcComponent,
+    ContextmenuComponent,
+    ProfileEditComponent,
+    SalaryEditComponent,
+    BankEditComponent
   ]
 })
 export class AppModule { }

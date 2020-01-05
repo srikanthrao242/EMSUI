@@ -1,0 +1,68 @@
+<mat-dialog-content class="mat-typography" >
+  <div>
+    <mat-toolbar color="primary">
+      <span>Salary Settings </span>
+      <span class="spacer"></span>
+    </mat-toolbar>
+    <form [formGroup]="employeeProfile">
+      <div fxLayout="row" fxLayoutGap ="5%" >
+        <div fxFlex="50%">
+          <div class="profile-container">
+            <mat-form-field>
+              <input matInput #inputstate [(ngModel)]="data.salaryPerHour" type="number" [value]="salaryPH" [formControl] = "employeeProfile.controls.salaryPerHour" placeholder="Salary / Hour"  required>
+              <mat-error *ngIf="f.salaryPerHour.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input #allowanceper #inputstate [(ngModel)]="data.allowance"  matInput type="number" [formControl] = "employeeProfile.controls.allowance" placeholder="Allowance %" (keyup)="onAllowance(allowanceper.value)" required>
+              <mat-error *ngIf="f.allowance.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input #deductionperc #inputstate [(ngModel)]="data.deduction"  matInput [formControl] = "employeeProfile.controls.deduction" type="number" placeholder="Deduction %" (keyup)="onDeduction(deductionperc.value)" required>
+              <mat-error *ngIf="f.deduction.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input #taxPerc matInput #inputstate [(ngModel)]="data.taxPercentage"  type="number" [formControl] = "employeeProfile.controls.taxPercentage" placeholder="Tax %" (keyup)="onKey(taxPerc.value)"required>
+              <mat-error *ngIf="f.taxPercentage.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput type="number" #inputstate [(ngModel)]="data.salBeforeTax"  [formControl] = "employeeProfile.controls.salBeforeTax" [value]="salaryBeforeTax" placeholder="Salary Before Tax">
+              <mat-error *ngIf="f.salBeforeTax.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <textarea matInput #inputstate [(ngModel)]="data.comments"  [formControl] = "employeeProfile.controls.comments" placeholder="Comments"></textarea>
+              <mat-error *ngIf="f.comments.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxFlex="50%">
+          <div class="profile-container">
+            <mat-form-field>
+              <input matInput #inputstate [(ngModel)]="data.salaryPerMon" #salaryPM type="number" [formControl] = "employeeProfile.controls.salaryPerMon" [value]="actualSalary" placeholder="Salary / Month" (keyup)="onSalaryKey(salaryPM.value)" required>
+              <mat-error *ngIf="f.salaryPerMon.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput #inputstate [(ngModel)]="data.allowanceDesc" [formControl] = "employeeProfile.controls.allowanceDesc" placeholder="Allowances Description" required>
+              <mat-error *ngIf="f.allowanceDesc.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput  #inputstate [(ngModel)]="data.deductionDesc"  [formControl] = "employeeProfile.controls.deductionDesc" placeholder="Deduction Description" required>
+              <mat-error *ngIf="f.deductionDesc.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput #inputstate [(ngModel)]="data.tax"  type="number" [formControl] = "employeeProfile.controls.tax" [value] = "totalTax" placeholder="Total Tax">
+              <mat-error *ngIf="f.tax.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput  #inputstate [(ngModel)]="data.salAfterTax" type="number" [formControl] = "employeeProfile.controls.salAfterTax" [value]="salaryAfterTax" placeholder="Salary After Tax">
+              <mat-error *ngIf="f.salAfterTax.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial (click)="onSubmit($event)">Edit</button>
+  </mat-dialog-actions>

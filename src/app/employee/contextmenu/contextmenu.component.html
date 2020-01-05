@@ -1,12 +1,5 @@
-<div style="visibility: hidden; position: fixed"
-    [style.left]="contextMenuPosition.x"
-    [style.top]="contextMenuPosition.y"
-    [matMenuTriggerFor]="contextMenu">
+<div mat-dialog-content class="context-menu-container">
+  <button mat-button (click)="editProfile()">Profile</button>
+  <button mat-button (click)="editSalary()">Salary</button>
+  <button mat-button (click)="editBankDetails()">BankDetails</button>
 </div>
-<mat-menu #contextMenu="matMenu">
-	<ng-template matMenuContent let-item="item">
-		<button mat-menu-item (click)="editProfile(item)">Profile</button>
-		<button mat-menu-item (click)="editSalary(item)">Salary</button>
-		<button mat-menu-item (click)="editBankDetails(item)">BankDetails</button>
-	</ng-template>
-</mat-menu>
