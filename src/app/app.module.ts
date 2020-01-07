@@ -22,6 +22,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatGridListModule} from '@angular/material';
 import {MatCardModule} from '@angular/material/card';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { MatDialogModule } from '@angular/material/dialog';
@@ -81,7 +82,8 @@ import { BankEditComponent } from './employee/profile/bank-edit/bank-edit.compon
     MatCardModule,
     FlexLayoutModule,
     MatSelectModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatSlideToggleModule
   ],
   providers: [],
   bootstrap: [

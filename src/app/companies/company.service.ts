@@ -123,6 +123,10 @@ export class CompanyService {
     );
   }
 
+  activateOrDeactivate(id: number, isActivate:boolean){
+    const url = `${this.companyUrl}/${id}/activation`;
+    return this.http.put(url,{isActivate:isActivate});
+  }
 
   private handleError<T> (operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {

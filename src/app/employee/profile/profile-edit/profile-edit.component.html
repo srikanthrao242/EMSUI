@@ -77,6 +77,7 @@
           <mat-datepicker-toggle matSuffix [for]="dorpicker"></mat-datepicker-toggle>
           <mat-datepicker #dorpicker></mat-datepicker>
         </mat-form-field>
+        <mat-slide-toggle [checked]="isActive" (change) = "changeActive()" >Activation</mat-slide-toggle>
         </div>
       </div>
     </div>

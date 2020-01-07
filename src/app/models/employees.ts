@@ -122,6 +122,7 @@ export const EmployeeColumnsDesc: EmployeeColumnsSchema[] = [
   {name: 'accNo', label: 'Account Number', type:'string', validators:['', Validators.required]}
 ];
 
+
 export interface EmpSalBank{
   employee: Employee,
   salary : Salary,

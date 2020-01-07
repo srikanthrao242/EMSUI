@@ -57,7 +57,6 @@ export class EmployeeComponent implements OnInit {
   }
 
   onShowDialog(evt, id:number): void {
-    console.log(id);
     const target = new ElementRef(evt.currentTarget);
     const dialogRef = this._matDialog.open(ContextmenuComponent, {
       data: { trigger: target , empId:id}

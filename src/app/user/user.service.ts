@@ -150,6 +150,10 @@ export class UserService {
     );
   }
 
+  activateOrDeactivate(id: number, isActivate:boolean){
+    const url = `${this.userUrl}/${id}/activation`;
+    return this.http.put(url,{isActivate:isActivate});
+  }
 
 
   private handleError<T> (operation = 'operation', result?: T) {

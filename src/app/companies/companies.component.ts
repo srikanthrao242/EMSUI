@@ -29,7 +29,7 @@ export class CompaniesComponent implements OnInit {
 
   columns : ColumnsSchema[]
 
-  displayedColumns: string[] = ['id','companyname','address','city','mobile','email','registerdate','registrationexp','whatsup','isActive','actions'];
+  displayedColumns: string[] = ['id','companyname','address','city','mobile','email','registerdate','registrationexp','whatsup','actions'];
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -42,6 +42,22 @@ export class CompaniesComponent implements OnInit {
 
   refresh() {
     this.loadData();
+  }
+
+  isActive(id:number, v:boolean):void{
+    if(v) {
+      v = false ;
+    }else{ v = true;}
+    console.log(id, v);
+    this.companyDatabase.activateOrDeactivate(id,v)
+    .pipe()
+    .subscribe(
+        data => {
+            console.log(data);
+        },
+        error => {
+          console.log(error)
+        });
   }
 
   public loadData() {

@@ -16,9 +16,10 @@ export class ProfileEditComponent implements OnInit {
   employeeProfile : FormGroup ;
   url_profile = '../../../../assets/images/icons8-user-male-skin-type-5-50.png';
   employeeServices : EmployeeService
+  isActive :boolean;
   constructor(
     public dialogRef: MatDialogRef<ProfileEditComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Employee,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private formBuilder: FormBuilder,
     private router: Router,
     employeeServices:EmployeeService) {
@@ -26,6 +27,7 @@ export class ProfileEditComponent implements OnInit {
       if(data.dateOfRelieving)
         data.dateOfRelieving = new Date(data.dateOfRelieving);
       this.employeeServices = employeeServices;
+      this.isActive = data.isActive;
      }
 
   get f() { return this.employeeProfile.controls; }
@@ -59,6 +61,10 @@ export class ProfileEditComponent implements OnInit {
     emp.companyId = this.data.companyId;
     emp.id = this.data.id;
     emp.dateOfJoining = addDaysFromDate(emp.dateOfJoining, 0);
+    emp.isActive = this.isActive;
+    if(!emp.dateOfRelieving && !this.isActive ){
+      emp.dateOfRelieving = addDaysFromDate(new Date(),0);
+    }
     this.employeeServices.updateEmployeeProfile(emp).pipe().subscribe(
       data => {
         console.log(data);
@@ -68,6 +74,11 @@ export class ProfileEditComponent implements OnInit {
         console.log(error);
       });
 
+  }
+
+  changeActive(){
+    (this.isActive) ? this.isActive = false : this.isActive = true;
+    console.log(this.isActive);
   }
 
   onNoClick(){

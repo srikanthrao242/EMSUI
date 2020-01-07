@@ -29,7 +29,7 @@ export class UserComponent implements OnInit {
 
   columns : UserColumnsSchema[]
 
-  displayedColumns: string[] = ['id','name','address','city','mobile','email','registerdate','registrationexp','whatsup','isActive','actions'];
+  displayedColumns: string[] = ['id','name','address','city','mobile','email','registerdate','registrationexp','whatsup','actions'];
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -72,6 +72,22 @@ export class UserComponent implements OnInit {
         this.refreshTable();
       }
     });
+  }
+
+
+  isActive(id:number, v:boolean):void{
+    if(v) {
+      v = false ;
+    }else{ v = true;}
+    this.userDatabase.activateOrDeactivate(id,v)
+    .pipe()
+    .subscribe(
+        data => {
+            console.log(data);
+        },
+        error => {
+          console.log(error)
+        });
   }
 
 
