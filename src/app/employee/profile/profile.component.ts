@@ -7,6 +7,7 @@ import {addDaysFromDate} from '../../helpers/util';
 import { AuthenticationService } from 'src/app/auth/authentication.service';
 import { first } from 'rxjs/operators';
 import { AlertService } from 'src/app/alert/alert.service';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-profile',
@@ -23,6 +24,7 @@ export class ProfileComponent implements OnInit {
   url_profile = '../../../assets/images/icons8-user-male-skin-type-5-50.png';
   loading = false;
   submitted = false;
+  userProfileImage = '';
 
 
 
@@ -87,10 +89,24 @@ export class ProfileComponent implements OnInit {
     if (event.target.files && event.target.files[0]) {
       var reader = new FileReader();
 
-      reader.readAsDataURL(event.target.files[0]); // read file as data url
+      var filePath = event.target.files[0];
+
+      reader.readAsDataURL(filePath); // read file as data url
 
       reader.onload = (event) => { // called once readAsDataURL is completed
-          this.url_profile = event.target["result"];
+
+        this.employeeService.loadImage(filePath)
+        .subscribe(
+            data => {
+              if(data instanceof HttpResponse){
+                console.log("successfully loaded file", data);
+                this.userProfileImage = (<HttpResponse<any>>data).body.fileName;
+                this.url_profile = event.target["result"];
+              }
+            },
+            error => {
+              console.log(error);
+            });
       }
     }
   }
@@ -115,6 +131,8 @@ export class ProfileComponent implements OnInit {
     result.employee.employeeType = json.employeeType;
     result.employee.qualification = json.qualification;
     result.employee.companyId = this.authServices.currentUserValue.companyid;
+    result.employee.isActive = true;
+    result.employee.employeeProfile = this.userProfileImage;
 
     result.salary.allowance = json.allowance;
     result.salary.allowanceDesc = json.allowanceDesc;

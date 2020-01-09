@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse, HttpRequest, HttpParams } from '@angular/common/http';
 import Employee, { Salary, BankDetails } from '../models/employees';
 import { config } from '../Config';
 import { BehaviorSubject, Observable, of } from 'rxjs';
@@ -15,6 +15,8 @@ export class EmployeeService {
   userId = this.user.id;
 
   private employeeUrl = `${config.server.serverURL}/api/employees/${this.userId}`;
+
+  private employeeProfile = `${config.server.serverURL}/api/employee-profile`
 
   private salaryUrl = `${config.server.serverURL}/api/salaries/${this.userId}`;
 
@@ -77,6 +79,23 @@ export class EmployeeService {
   updateBankProfile(bank:BankDetails){
     return this.http.put<any>(`${this.bankUrl}`, bank);
   }
+
+
+  loadImage(filePath){
+
+    const formData = new FormData();
+    formData.append('image', filePath);
+
+    const params = new HttpParams();
+
+    const options = {
+        params,
+        reportProgress: true,
+    };
+    const req = new HttpRequest('POST', `${this.employeeProfile}`, formData, options);
+    return this.http.request(req);
+  }
+
 
   private handleError<T> (operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {

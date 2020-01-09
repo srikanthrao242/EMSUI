@@ -9,6 +9,7 @@ import {ErrorStateMatcher} from '@angular/material/core';
 import {Company, ColumnsSchema, columnsDesc} from '../companies/CompaniesUtil';
 import {UserColumnsDesc, UserColumnsSchema} from '../models/user';
 import {UserService} from '../user/user.service';
+import { HttpEventType, HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-register',
@@ -22,9 +23,11 @@ export class RegisterComponent implements OnInit {
   submitted = false;
   companycolumnsDesc: ColumnsSchema[];
   userColumnsDesc : UserColumnsSchema[];
-  url_profile = '';
-  url_cl='';
+  url_profile = '../../assets/images/icons8-user-male-skin-type-5-50.png';
+  url_cl='../../assets/images/icons8-apple-logo-50.png';
   unUsedColForCompany = ['id','isActive','registerdate','registrationexp'];
+  userProfileImage = '';
+  companyLogo = '';
 
   constructor(
       private formBuilder: FormBuilder,
@@ -43,17 +46,43 @@ export class RegisterComponent implements OnInit {
 
   onSelectFile(event, fromPCL) {
     if (event.target.files && event.target.files[0]) {
+      var filePath = event.target.files[0]; // read file as data url
+
       var reader = new FileReader();
 
       reader.readAsDataURL(event.target.files[0]); // read file as data url
 
       reader.onload = (event) => { // called once readAsDataURL is completed
-        if(fromPCL === "profile"){
-          this.url_profile = event.target["result"];
+         if(fromPCL === "profile"){
+          this.userService.loadImage("profile", filePath)
+            .subscribe(
+                data => {
+                  if(data instanceof HttpResponse){
+                    console.log("successfully loaded file", data);
+                    this.userProfileImage = (<HttpResponse<any>>data).body.fileName;
+                    this.url_profile = event.target["result"];
+                  }
+                },
+                error => {
+                  console.log(error);
+                });
         }else{
-          this.url_cl = event.target["result"];
+          this.userService.loadImage("cl", filePath)
+            .subscribe(
+                data => {
+                  if(data instanceof HttpResponse){
+                    console.log("successfully loaded file", data);
+                    this.companyLogo = (<HttpResponse<any>>data).body.fileName;
+                    this.url_cl = event.target["result"];
+                  }
+                },
+                error => {
+                  console.log(error);
+                });
         }
       }
+
+
     }
   }
 
@@ -82,6 +111,8 @@ export class RegisterComponent implements OnInit {
       if (this.registerForm.invalid) {
           return;
       }
+      this.registerForm.value.profileimg = this.userProfileImage;
+      this.registerForm.value.comapnylogo = this.companyLogo;
       this.loading = true;
       this.userService.register(this.registerForm.value)
           .pipe(first())

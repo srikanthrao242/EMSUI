@@ -16,7 +16,9 @@ export interface Employee{
   companyId:number,
   designation:string,
   employeeType:string,
-  qualification:string
+  qualification:string,
+  isActive:boolean,
+  employeeProfile:string
 }
 
 export interface Salary{

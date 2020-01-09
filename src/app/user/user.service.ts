@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {UsreRegisterSchema, User} from '../models/user'
-import { HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams, HttpRequest} from '@angular/common/http';
 import {config} from '../Config'
 import {BehaviorSubject, Observable, of} from 'rxjs';
 import { Company } from '../companies/CompaniesUtil';
@@ -16,13 +16,15 @@ export class UserService {
   king = 'UserService'
 
   private userUrl = config.server.serverURL + '/api/users';
+  private userImgUrl = config.server.serverURL + '/api/user-profile';
+
+  private companyUrl = config.server.serverURL + '/api/company-logo';
 
   dataChange: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([]);
 
 
   httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': '*/*', 'Access-Control-Allow-Methods' : 'GET, POST, PUT, DELETE, OPTIONS',
-    'Access-Control-Allow-Origin': config.server.serverURL  })
+    headers: new HttpHeaders({ 'Content-Type': 'multipart/form-data' })
   };
 
 
@@ -80,10 +82,30 @@ export class UserService {
 
   }
 
+  loadImage(from:string, filePath){
+
+    const formData = new FormData();
+    formData.append('image', filePath);
+
+    const params = new HttpParams();
+
+    const options = {
+        params,
+        reportProgress: true,
+    };
+    var urlImg = `${this.userImgUrl}`;
+
+    if(from == "cl"){
+      urlImg = `${this.companyUrl}`;
+    }
+    const req = new HttpRequest('POST', `${urlImg}`, formData, options);
+    return this.http.request(req);
+  }
 
   register(registerInputs:UsreRegisterSchema){
     return this.http.post(`${this.userUrl}/register`, this.prepareRegisterUserAndCompany(registerInputs));
   }
+
 
 
 
