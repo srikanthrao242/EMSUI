@@ -6,7 +6,10 @@
   </mat-toolbar>
   <form [formGroup]="employeeProfile">
     <label for="profileimg">Profile Image</label>
-    <img [src]="url_profile" height="100"> <br/>
+    <img [src]="imageToShow"  *ngIf="!isImageLoading; else noImageFound" height="100"> <br/>
+    <ng-template #noImageFound>
+          <img [src]="url_profile" alt="Fallbackimage">
+    </ng-template>
     <input type="file" (change)="onSelectFile($event)" />
     <div fxLayout="row" fxLayoutGap ="5%" >
       <div fxFlex="50%">

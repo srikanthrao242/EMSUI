@@ -18,6 +18,8 @@ export class EmployeeService {
 
   private employeeProfile = `${config.server.serverURL}/api/employee-profile`
 
+  getEmployeeImg = `${this.employeeUrl}/employee/image/`;
+
   private salaryUrl = `${config.server.serverURL}/api/salaries/${this.userId}`;
 
   private bankUrl = `${config.server.serverURL}/api/banks/${this.userId}`;

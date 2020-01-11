@@ -55,7 +55,7 @@ export interface EmployeeColumnsSchema{
   validators: Validators[]
 }
 
-export const displayedColumns = ['id','firstName', 'lastName', 'dateOfJoining', 'email', 'mobile','city', 'designation','employeeType','actions']
+export const displayedColumns = ['id', 'firstName', 'lastName', 'dateOfJoining', 'email', 'mobile','city', 'designation','employeeType','actions']
 
 export const EmployeeProfileColumnsDesc : EmployeeColumnsSchema[] =[
   {name:'firstName', label: 'First Name', type: 'string', validators:['', Validators.required]},
