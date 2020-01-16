@@ -8,8 +8,11 @@
   <button mat-menu-item [routerLink]="'/user'">List</button>
 </mat-menu>
 
-<button mat-button [matMenuTriggerFor]="employees" [routerLink]="'/employees'">Employees</button>
-<mat-menu #employees="matMenu">
+
+<button mat-button [matMenuTriggerFor]="employees" >Employees</button>
+<mat-menu #employees="matMenu" yPosition="below">
+  <button mat-menu-item [routerLink]="'/employees'">List</button>
+  <button mat-menu-item [routerLink]="'/studentWizard'">Student Wizard</button>
 </mat-menu>
 
 

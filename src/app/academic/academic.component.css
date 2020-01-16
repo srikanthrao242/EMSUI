@@ -1,0 +1,20 @@
+.academic-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 70%;
+}
+
+.academic-container > * {
+  width: 40%;
+}
+
+.academic-input {
+  padding-top : 8%;
+  height: 70%;
+}
+
+.academic-button {
+  margin-left : 30%;
+}

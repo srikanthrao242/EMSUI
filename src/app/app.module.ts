@@ -40,6 +40,8 @@ import { ContextmenuComponent } from './employee/contextmenu/contextmenu.compone
 import { ProfileEditComponent } from './employee/profile/profile-edit/profile-edit.component';
 import { SalaryEditComponent } from './employee/profile/salary-edit/salary-edit.component';
 import { BankEditComponent } from './employee/profile/bank-edit/bank-edit.component';
+import { StudentWizardComponent } from './student-wizard/student-wizard.component';
+import { AcademicComponent } from './academic/academic.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +60,9 @@ import { BankEditComponent } from './employee/profile/bank-edit/bank-edit.compon
     ContextmenuComponent,
     ProfileEditComponent,
     SalaryEditComponent,
-    BankEditComponent
+    BankEditComponent,
+    StudentWizardComponent,
+    AcademicComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,28 @@
+<div class="academic-input">
+  <form layout layout-align="center" layout-padding>
+      <div layout="row" flex>
+        <div class="academic-container">
+          <mat-form-field>
+            <mat-label>Academic Year Name</mat-label>
+            <input matInput required>
+          </mat-form-field>
+        </div>
+        <div class="academic-container">
+          <mat-form-field >
+            <input matInput [matDatepicker]="picker" placeholder="Choose Start Date" required>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker [dateClass]="dateClass" #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="academic-container">
+          <mat-form-field>
+            <input matInput type="number" placeholder="Academic End Year" required>
+          </mat-form-field>
+        </div>
+        <div class="academic-button btn-toolbar">
+          <button mat-button class=" mat-raised-button " type="button">Start</button>
+          <button mat-button class=" mat-raised-button " type="button">Cancel</button>
+        </div>
+      </div>
+  </form>
+</div>

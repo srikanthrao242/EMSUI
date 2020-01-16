@@ -48,7 +48,6 @@ export class CompaniesComponent implements OnInit {
     if(v) {
       v = false ;
     }else{ v = true;}
-    console.log(id, v);
     this.companyDatabase.activateOrDeactivate(id,v)
     .pipe()
     .subscribe(
