@@ -24,6 +24,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
+import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
@@ -32,7 +33,6 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { AlertcComponent } from './alertc/alertc.component';
 import { UserComponent } from './user/user.component';
 import { EmployeeComponent } from './employee/employee.component';
 import { ProfileComponent } from './employee/profile/profile.component';
@@ -42,6 +42,10 @@ import { SalaryEditComponent } from './employee/profile/salary-edit/salary-edit.
 import { BankEditComponent } from './employee/profile/bank-edit/bank-edit.component';
 import { StudentWizardComponent } from './student-wizard/student-wizard.component';
 import { AcademicComponent } from './academic/academic.component';
+import { StudentClassesComponent } from './student-classes/student-classes.component';
+import { NotificationComponent } from './toastr-notification/toastr-notification.component';
+import { NotificationService } from './toastr-notification/toastr-notification.service';
+import { AcademicListComponent } from './academic-list/academic-list.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +57,6 @@ import { AcademicComponent } from './academic/academic.component';
     EditComponent,
     LoginComponent,
     RegisterComponent,
-    AlertcComponent,
     UserComponent,
     EmployeeComponent,
     ProfileComponent,
@@ -62,7 +65,10 @@ import { AcademicComponent } from './academic/academic.component';
     SalaryEditComponent,
     BankEditComponent,
     StudentWizardComponent,
-    AcademicComponent
+    AcademicComponent,
+    StudentClassesComponent,
+    NotificationComponent,
+    AcademicListComponent
   ],
   imports: [
     BrowserModule,
@@ -87,9 +93,10 @@ import { AcademicComponent } from './academic/academic.component';
     FlexLayoutModule,
     MatSelectModule,
     MatDatepickerModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    CommonModule
   ],
-  providers: [],
+  providers: [NotificationService],
   bootstrap: [
     AppComponent,
     MenusComponent,
@@ -99,11 +106,13 @@ import { AcademicComponent } from './academic/academic.component';
     EditComponent,
     LoginComponent,
     RegisterComponent,
-    AlertcComponent,
     ContextmenuComponent,
     ProfileEditComponent,
     SalaryEditComponent,
     BankEditComponent
+  ],
+  exports: [
+    NotificationComponent
   ]
 })
 export class AppModule { }

@@ -6,7 +6,6 @@ import { EmployeeService } from '../employee.service';
 import {addDaysFromDate} from '../../helpers/util';
 import { AuthenticationService } from 'src/app/auth/authentication.service';
 import { first } from 'rxjs/operators';
-import { AlertService } from 'src/app/alert/alert.service';
 import { HttpResponse } from '@angular/common/http';
 
 @Component({
@@ -34,8 +33,7 @@ export class ProfileComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private employeeService: EmployeeService,
-    private authServices : AuthenticationService,
-    private alertService: AlertService
+    private authServices : AuthenticationService
     ) { }
 
 
@@ -171,11 +169,9 @@ export class ProfileComponent implements OnInit {
     .pipe(first())
     .subscribe(
         data => {
-            this.alertService.success('Registration successful', true);
             this.router.navigate(['/employees']);
         },
         error => {
-            this.alertService.error(error);
             this.loading = false;
         });
 

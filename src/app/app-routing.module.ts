@@ -9,6 +9,8 @@ import { EmployeeComponent } from './employee/employee.component';
 import { ProfileComponent } from './employee/profile/profile.component';
 import {StudentWizardComponent} from './student-wizard/student-wizard.component';
 import {AcademicComponent} from './academic/academic.component';
+import { StudentClassesComponent } from './student-classes/student-classes.component';
+import { AcademicListComponent } from './academic-list/academic-list.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full' , canActivate: [AuthGuardService]},
@@ -20,6 +22,8 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent , canActivate: [AuthGuardService]},
   { path: 'studentWizard', component: StudentWizardComponent , canActivate: [AuthGuardService]},
   { path: 'academic', component: AcademicComponent , canActivate: [AuthGuardService]},
+  { path: 'classes', component: StudentClassesComponent , canActivate: [AuthGuardService]},
+  { path: 'academic-list', component: AcademicListComponent , canActivate: [AuthGuardService]},
 
   // otherwise redirect to home
   { path: '**', redirectTo: ''}
