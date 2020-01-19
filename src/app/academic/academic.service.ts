@@ -27,6 +27,10 @@ export class AcademicService {
       });
   }
 
+  getAllAcademicNames(){
+    return this.http.get<string[]>(`${this.academicURL}/academic-names`);
+  }
+
 
 
   get data(): Academic[] {

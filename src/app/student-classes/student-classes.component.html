@@ -1,4 +1,70 @@
-<div>
-  <h4 class="academic-header">Define New Classes and Sections</h4>
+  <form [formGroup]="dynamicForm" (ngSubmit)="onSubmit()">
+    <div class="card m-3">
+        <h5 class="card-header academic-header">Define New Classes and Sections</h5>
+        <div class="card-body">
+            <div class="form-row">
+                <div class="form-group col-5">
+                    <label>Academics</label>
+                    <select formControlName="academicName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.academicName.errors }">
+                        <option value=""></option>
+                        <option *ngFor="let academic of academicsNames">{{academic}}</option>
+                    </select>
+                    <div *ngIf="submitted && f.academicName.errors" class="invalid-feedback">
+                        <div *ngIf="f.academicName.errors.required">Academic Name is required</div>
+                    </div>
+                </div>
+                <div class="form-group col-5">
+                  <label>Number Of Classes</label>
+                  <input matInput type ="number" formControlName="numberOfClasses" class="form-control" (change)="onChangeClasses($event)" [ngClass]="{ 'is-invalid': submitted && f.numberOfClasses.errors }">
+                  <div *ngIf="submitted && f.numberOfClasses.errors" class="invalid-feedback">
+                      <div *ngIf="f.numberOfClasses.errors.required">Number Of class is required</div>
+                  </div>
+              </div>
+            </div>
+        </div>
+        <div *ngFor="let ticket of t.controls; let i = index" class="list-group list-group-flush">
+            <!--<div class="list-group-item">-->
+                <div [formGroup]="ticket" class="form-row">
+                    <div class="form-group col-2">
+                        <label>Class Name - {{i}}</label>
+                        <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && ticket.controls.name.errors }" />
+                        <div *ngIf="submitted && ticket.controls.name.errors" class="invalid-feedback">
+                            <div *ngIf="ticket.controls.name.errors.required">Name is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group col-2">
+                        <label>Number Of Sections</label>
+                        <input type="number" formControlName="sections" (change)="onChangeSections($event, i)" class="form-control" [ngClass]="{ 'is-invalid': submitted && ticket.controls.sections.errors }" />
+                        <div *ngIf="submitted && ticket.controls.sections.errors" class="invalid-feedback">
+                            <div *ngIf="ticket.controls.sections.required">sections is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group col-6">
+                      <div *ngFor="let sec of getSections(i); let j = index" class="list-group list-group-flush">
+                        <!--<div class="list-group-item">-->
+                            <div [formGroup]="sec" class="form-row">
+                                <div class="form-group">
+                                    <label>class {{i}} Section Name - {{j}}</label>
+                                    <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && sec.controls.name.errors }" />
+                                    <div *ngIf="submitted && sec.controls.name.errors" class="invalid-feedback">
+                                        <div *ngIf="sec.controls.name.errors.required">Name is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                      <!--</div>-->
+                    </div>
+                    </div>
 
-</div>
+                </div>
+            </div>
+        <!--</div>-->
+
+        <div class="card-footer text-center">
+            <button class="btn btn-primary mr-1">Create Classes</button>
+            <button class="btn btn-secondary mr-1" type="reset" (click)="onReset()">Reset</button>
+            <button class="btn btn-secondary" type="button" (click)="onClear()">Clear</button>
+        </div>
+    </div>
+</form>
+
+

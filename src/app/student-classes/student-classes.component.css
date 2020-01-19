@@ -1,11 +1,35 @@
 .academic-header {
+  font-family: 'Tangerine', serif;
+  font-size: 48px;
+  text-shadow: 4px 4px 4px #aaa;
+  align-items: center;
+}
+
+.academic-class-content {
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding-top : 4%;
-  font-family: 'Tangerine', serif;
-  font-size: 48px;
-  text-shadow: 4px 4px 4px #aaa;
-  height: 70%;
+}
+
+
+.example-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.example-container > * {
+  width: 50%;
+}
+
+
+.academic-label{
+  font-size: 120%;
+  padding-top: 5%;
+}
+
+.form-group > * {
+  margin:8px 40px;
 }
