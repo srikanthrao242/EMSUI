@@ -41,7 +41,9 @@ export class StudentClassesComponent implements OnInit {
           for (let i = this.t.length; i < numberOfTickets; i++) {
               this.t.push(this.formBuilder.group({
                   name: ['', Validators.required],
-                  sections: ['', [Validators.required]]
+                  sections: ['', [Validators.required]],
+                  FeeType:['',[Validators.required]],
+                  Fee : ['',[Validators.required]]
               }));
               this.sectionFormControl[i] = [];
           }

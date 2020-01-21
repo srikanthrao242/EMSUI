@@ -32,6 +32,25 @@
                     </div>
                 </div>
                 <div class="form-group col-2">
+                  <label>Fee Type</label>
+                  <select formControlName="FeeType" class="form-control" [ngClass]="{ 'is-invalid': submitted && ticket.controls.FeeType.errors }">
+                      <option value="MONTHLY">MONTHLY</option>
+                      <option value="QUARTERLY">QUARTERLY</option>
+                      <option value="HALFYEARLY">HALFYEARLY</option>
+                      <option value="YEARLY">YEARLY</option>
+                  </select>
+                  <div *ngIf="submitted && ticket.controls.FeeType.errors" class="invalid-feedback">
+                      <div *ngIf="ticket.controls.FeeType.errors.required">FeeType Name is required</div>
+                  </div>
+                </div>
+                <div class="form-group col-2">
+                    <label>Fee</label>
+                    <input type="number" formControlName="Fee" class="form-control" [ngClass]="{ 'is-invalid': submitted && ticket.controls.Fee.errors }" />
+                    <div *ngIf="submitted && ticket.controls.Fee.errors" class="invalid-feedback">
+                        <div *ngIf="ticket.controls.Fee.required">Fee is required</div>
+                    </div>
+                </div>
+                <div class="form-group col-2">
                     <label>Number Of Sections</label>
                     <input type="number" formControlName="sections" (change)="onChangeSections($event, i)" class="form-control" [ngClass]="{ 'is-invalid': submitted && ticket.controls.sections.errors }" />
                     <div *ngIf="submitted && ticket.controls.sections.errors" class="invalid-feedback">
