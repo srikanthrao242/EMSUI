@@ -5,12 +5,12 @@
             <div class="form-row">
                 <div class="form-group col-5">
                     <label>Academics</label>
-                    <select formControlName="academicName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.academicName.errors }">
+                    <select formControlName="AcademicID" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.AcademicID.errors }">
                         <option value=""></option>
-                        <option *ngFor="let academic of academicsNames">{{academic}}</option>
+                        <option *ngFor="let academic of academicsNames" [value] = "academic.AcademicID">{{academic["AcademicName"]}}</option>
                     </select>
-                    <div *ngIf="submitted && f.academicName.errors" class="invalid-feedback">
-                        <div *ngIf="f.academicName.errors.required">Academic Name is required</div>
+                    <div *ngIf="submitted && f.AcademicID.errors" class="invalid-feedback">
+                        <div *ngIf="f.AcademicID.errors.required">Academic Name is required</div>
                     </div>
                 </div>
                 <div class="form-group col-5">
@@ -26,9 +26,9 @@
             <div [formGroup]="ticket" class="form-row">
                 <div class="form-group col-2">
                     <label>Class Name - {{i}}</label>
-                    <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && ticket.controls.name.errors }" />
-                    <div *ngIf="submitted && ticket.controls.name.errors" class="invalid-feedback">
-                        <div *ngIf="ticket.controls.name.errors.required">Name is required</div>
+                    <input type="text" formControlName="ClassName" class="form-control" [ngClass]="{ 'is-invalid': submitted && ticket.controls.ClassName.errors }" />
+                    <div *ngIf="submitted && ticket.controls.ClassName.errors" class="invalid-feedback">
+                        <div *ngIf="ticket.controls.ClassName.errors.required">Name is required</div>
                     </div>
                 </div>
                 <div class="form-group col-2">
@@ -52,21 +52,33 @@
                 </div>
                 <div class="form-group col-2">
                     <label>Number Of Sections</label>
-                    <input type="number" formControlName="sections" (change)="onChangeSections($event, i)" class="form-control" [ngClass]="{ 'is-invalid': submitted && ticket.controls.sections.errors }" />
-                    <div *ngIf="submitted && ticket.controls.sections.errors" class="invalid-feedback">
-                        <div *ngIf="ticket.controls.sections.required">sections is required</div>
+                    <input type="number" formControlName="NumberOfSections" (change)="onChangeSections($event, i)" class="form-control" [ngClass]="{ 'is-invalid': submitted && ticket.controls.NumberOfSections.errors }" />
+                    <div *ngIf="submitted && ticket.controls.NumberOfSections.errors" class="invalid-feedback">
+                        <div *ngIf="ticket.controls.NumberOfSections.required">sections is required</div>
                     </div>
                 </div>
                 <div class="form-group col-6">
                   <div *ngFor="let sec of getSections(i); let j = index" class="list-group list-group-flush">
                       <div [formGroup]="sec" class="form-row">
-                          <div class="form-group">
-                              <label>class {{i}} Section Name - {{j}}</label>
-                              <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && sec.controls.name.errors }" />
-                              <div *ngIf="submitted && sec.controls.name.errors" class="invalid-feedback">
-                                  <div *ngIf="sec.controls.name.errors.required">Name is required</div>
+                          <div class="form-group col-4">
+                              <label>Section Name</label>
+                              <input type="text" formControlName="SectionName" class="form-control" [ngClass]="{ 'is-invalid': submitted && sec.controls.SectionName.errors }" />
+                              <div *ngIf="submitted && sec.controls.SectionName.errors" class="invalid-feedback">
+                                  <div *ngIf="sec.controls.SectionName.errors.required">Name is required</div>
                               </div>
                           </div>
+                          <div class="form-group col-4">
+                            <label> TakeCarer </label>
+                            <input type="number" value="0" formControlName="TakeCarer" class="form-control"  />
+                          </div>
+                          <div class="form-group col-4">
+                            <label>RoomDetails</label>
+                            <input type="text" formControlName="RoomDetails" class="form-control" [ngClass]="{ 'is-invalid': submitted && sec.controls.RoomDetails.errors }" />
+                            <div *ngIf="submitted && sec.controls.RoomDetails.errors" class="invalid-feedback">
+                                <div *ngIf="sec.controls.RoomDetails.errors.required">RoomDetails is required</div>
+                            </div>
+                          </div>
+
                       </div>
                   </div>
                 </div>

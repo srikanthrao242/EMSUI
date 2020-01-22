@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AcademicService } from '../academic/academic.service';
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
+import { Academic } from '../models/academics';
+import { StudentClassService } from './student-class.service';
 
 @Component({
   selector: 'app-student-classes',
@@ -11,14 +13,14 @@ export class StudentClassesComponent implements OnInit {
 
   dynamicForm: FormGroup;
   submitted = false;
-  academicsNames : string[];
+  academicsNames : Academic[];
   sectionFormControl: any = {};
 
-  constructor(private academicService:AcademicService, private formBuilder: FormBuilder) { }
+  constructor(private academicService:AcademicService, private studentClassSer : StudentClassService,  private formBuilder: FormBuilder) { }
 
   ngOnInit() {
       this.dynamicForm = this.formBuilder.group({
-          academicName:['', Validators.required],
+          AcademicID:['', Validators.required],
           numberOfClasses: ['', Validators.required],
           classes: new FormArray([]),
           sections:new FormArray([])
@@ -40,8 +42,8 @@ export class StudentClassesComponent implements OnInit {
       if (this.t.length < numberOfTickets) {
           for (let i = this.t.length; i < numberOfTickets; i++) {
               this.t.push(this.formBuilder.group({
-                  name: ['', Validators.required],
-                  sections: ['', [Validators.required]],
+                  ClassName: ['', Validators.required],
+                  NumberOfSections: ['', [Validators.required]],
                   FeeType:['',[Validators.required]],
                   Fee : ['',[Validators.required]]
               }));
@@ -63,7 +65,9 @@ export class StudentClassesComponent implements OnInit {
         for (let i = this.sectionFormControl[id].length; i < numberOfTickets; i++) {
             if(this.sectionFormControl.hasOwnProperty(id)){
               const fb = this.formBuilder.group({
-                              name: ['', Validators.required]
+                            SectionName: ['', Validators.required],
+                            TakeCarer: [],
+                            RoomDetails: ['', Validators.required]
                           });
               this.sectionFormControl[id].push(fb);
             }
@@ -73,7 +77,19 @@ export class StudentClassesComponent implements OnInit {
             this.sectionFormControl[id].splice(i, 1);
         }
     }
-}
+  }
+
+ prepareInputForClassesSections(){
+  var academicID = +this.dynamicForm.value.AcademicID;
+  return this.dynamicForm.value.classes.map((clas, i)=>{
+    clas["AcademicID"] = academicID;
+    var r ={"classes" : clas, "sections" : [] };
+    if(this.sectionFormControl.hasOwnProperty(i)){
+      r.sections = this.sectionFormControl[i].map(v=> v.value);
+    }
+    return r;
+  });
+ }
 
 
 
@@ -84,9 +100,25 @@ export class StudentClassesComponent implements OnInit {
       if (this.dynamicForm.invalid) {
           return;
       }
+      var sections = {};
+      var loopExit = false;
+      for(var key in this.sectionFormControl){
+        sections[key]  = [];
+        this.sectionFormControl[key].forEach(element => {
+            if(element.invalid){
+                loopExit = true;
+                return;
+            }else{
+                sections[key].push(element.value.name);
+            }
+        });
+        if(loopExit){
+            return;
+        }
+      }
 
-      // display form values on success
-      alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.dynamicForm.value, null, 4));
+      this.studentClassSer.addClassSections(this.prepareInputForClassesSections())
+
   }
 
   onReset() {

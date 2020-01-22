@@ -28,7 +28,7 @@ export class AcademicService {
   }
 
   getAllAcademicNames(){
-    return this.http.get<string[]>(`${this.academicURL}/academic-names`);
+    return this.http.get<Academic[]>(`${this.academicURL}/all-academics`);
   }
 
 
