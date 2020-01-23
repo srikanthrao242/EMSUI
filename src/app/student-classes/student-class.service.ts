@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { config } from '../Config';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -11,12 +12,13 @@ export class StudentClassService {
 
   classSecURL = `${config.server.serverURL}/api/classes/sections/${this.user.id}`
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   addClassSections(json:any) {
     this.http.post(this.classSecURL, json)
     .subscribe(
       (val) => {
+          this.router.navigate(['/classes']);
           console.log(" call successful value returned in body", val);
       },
       response => {
@@ -25,6 +27,10 @@ export class StudentClassService {
       () => {
           console.log("The  observable is now completed.");
       });
+  }
+
+  getClassSections(academicId:number) {
+    return this.http.get(`${this.classSecURL}/${academicId}`);
   }
 
 }

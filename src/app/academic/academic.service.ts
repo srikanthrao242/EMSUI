@@ -31,8 +31,6 @@ export class AcademicService {
     return this.http.get<Academic[]>(`${this.academicURL}/all-academics`);
   }
 
-
-
   get data(): Academic[] {
     return this.dataChange.value;
   }
