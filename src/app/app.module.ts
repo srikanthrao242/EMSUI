@@ -47,6 +47,7 @@ import { NotificationComponent } from './toastr-notification/toastr-notification
 import { NotificationService } from './toastr-notification/toastr-notification.service';
 import { AcademicListComponent } from './academic-list/academic-list.component';
 import { ListClassesComponent } from './student-classes/list-classes/list-classes.component';
+import { StudentAdmissionComponent } from './student-admission/student-admission.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { ListClassesComponent } from './student-classes/list-classes/list-classe
     StudentClassesComponent,
     NotificationComponent,
     AcademicListComponent,
-    ListClassesComponent
+    ListClassesComponent,
+    StudentAdmissionComponent
   ],
   imports: [
     BrowserModule,

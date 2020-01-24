@@ -12,6 +12,7 @@ import {AcademicComponent} from './academic/academic.component';
 import { StudentClassesComponent } from './student-classes/student-classes.component';
 import { AcademicListComponent } from './academic-list/academic-list.component';
 import { ListClassesComponent } from './student-classes/list-classes/list-classes.component';
+import { StudentAdmissionComponent } from './student-admission/student-admission.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full' , canActivate: [AuthGuardService]},
@@ -26,6 +27,7 @@ const routes: Routes = [
   { path: 'classes', component: StudentClassesComponent , canActivate: [AuthGuardService]},
   { path: 'academic-list', component: AcademicListComponent , canActivate: [AuthGuardService]},
   { path: 'classes-sections-list', component: ListClassesComponent , canActivate: [AuthGuardService]},
+  { path: 'new-admission', component: StudentAdmissionComponent , canActivate: [AuthGuardService]},
 
   // otherwise redirect to home
   { path: '**', redirectTo: ''}

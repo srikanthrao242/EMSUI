@@ -1,0 +1,158 @@
+
+<form >
+  <div class="card m-3">
+    <div class="card-body">
+    <div class="form-group row">
+      <label for="academicsDetails" class="col-sm-1 col-form-label">Academic</label>
+      <div class="col-sm-3">
+        <select [(ngModel)]="selectedAcademic" (ngModelChange)="onChangeAcademic($event)" name="selectedAcademic" class="form-control">
+            <option [value]=""></option>
+            <option *ngFor="let academic of academicsNames" [value] = "academic.AcademicID">{{academic["AcademicName"]}}</option>
+        </select>
+      </div>
+      <div class="col-sm-3">
+        <select [(ngModel)]="selectedClass" (ngModelChange)="onChangeClass($event)" name="selectedClass" class="form-control">
+            <option [value]=""></option>
+            <option *ngFor="let clas of classes" [value] = "clas.ClassID">{{clas["ClassName"]}}</option>
+        </select>
+      </div>
+      <div class="col-sm-3">
+        <select [(ngModel)]="selectedSection" name="selectedSection" class="form-control">
+            <option [value]=""></option>
+            <option *ngFor="let sec of sections" [value] = "sec.SectionID">{{sec["SectionName"]}}</option>
+        </select>
+      </div>
+    </div>
+    </div>
+  </div>
+
+
+  <div class="card m-3">
+    <div class="card-body">
+        <div class="form-group row">
+          <label for="studentfirstName" class="col-sm-1 col-form-label">First Name</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" id="studentfirstName">
+          </div>
+          <label for="studentLastName" class="col-sm-1 col-form-label">Last Name</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" id="studentLastName">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="studentFatherName" class="col-sm-1 col-form-label">FatherName</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" id="studentFatherName">
+          </div>
+          <label for="studentMotherName" class="col-sm-1 col-form-label">MotherName</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" id="studentMotherName">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="studentFatherOcc" class="col-sm-1 col-form-label">FatherOcc</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" id="studentFatherOcc">
+          </div>
+          <label for="studentMotherOcc" class="col-sm-1 col-form-label">MotherOcc</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" id="studentMotherOcc">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="studentFatherQua" class="col-sm-1 col-form-label">FatherQua</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" id="studentFatherQua">
+          </div>
+          <label for="studentMotherQua" class="col-sm-1 col-form-label">MotherQua</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" id="studentMotherQua">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="studentBloodGroup" class="col-sm-1 col-form-label">Blood Group</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" id="studentBloodGroup">
+          </div>
+          <label for="studentReligion" class="col-sm-1 col-form-label">Religion</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" id="studentReligion">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="studentDOB" class="col-sm-1 col-form-label">DOB</label>
+          <div class="col-sm-4">
+            <input type="date" class="form-control" id="studentDOB">
+          </div>
+          <label for="studentGender" class="col-sm-1 col-form-label">Gender</label>
+          <div class="col-sm-4">
+            <select class="form-control" id="studentGender">
+              <option>Male</option>
+              <option>FeMale</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="studentMobile" class="col-sm-1 col-form-label">Mobile</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" id="studentMobile">
+          </div>
+          <label for="studentEmail" class="col-sm-1 col-form-label">Email</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" id="studentEmail">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="studentAddress" class="col-sm-1 col-form-label">Address</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" id="studentAddress">
+          </div>
+          <label for="studentCity" class="col-sm-1 col-form-label">City</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" id="studentCity">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="studentState" class="col-sm-1 col-form-label">State</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" id="studentState">
+          </div>
+          <label for="studentPinCode" class="col-sm-1 col-form-label">PinCode</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" id="studentPinCode">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="studentCountry" class="col-sm-1 col-form-label">Country</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" id="studentCountry">
+          </div>
+          <label for="profileimg" class="col-sm-1 col-form-label">Profile Image</label>
+          <img [src]="imageToShow"  *ngIf="!isImageLoading; else noImageFound" height="100"> <br/>
+          <ng-template #noImageFound>
+                <img [src]="url_profile" alt="Fallbackimage">
+          </ng-template>
+          <input type="file" (change)="onSelectFile($event)" />
+        </div>
+    </div>
+  </div>
+  <div class="card m-3">
+    <div class="card-body">
+    <div class="form-group row">
+      <label for="studentAdmissionFee" class="col-sm-1 col-form-label">Admission Fee</label>
+      <div class="col-sm-4">
+        <input type="number" class="form-control" id="studentAdmissionFee">
+      </div>
+      <label for="studentPaidFee" class="col-sm-1 col-form-label">Paid Fee</label>
+      <div class="col-sm-4">
+        <input type="number" class="form-control" id="studentPaidFee">
+      </div>
+    </div>
+    </div>
+    <div class="card-footer text-center">
+        <button class="btn btn-primary mr-1">Save Student</button>
+        <button class="btn btn-secondary" type="button">Cancel</button>
+    </div>
+  </div>
+
+</form>

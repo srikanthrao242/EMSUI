@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { config } from '../Config';
 import { Router } from '@angular/router';
+import { Classes, ClassSections } from '../models/classesAndSections';
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +32,14 @@ export class StudentClassService {
 
   getClassSections(academicId:number) {
     return this.http.get(`${this.classSecURL}/${academicId}`);
+  }
+
+  getClasses(academicId:number) {
+    return this.http.get<Classes[]>(`${this.classSecURL}/class/${academicId}`);
+  }
+
+  getSections(classId:number) {
+    return this.http.get<ClassSections[]>(`${this.classSecURL}/section/${classId}`);
   }
 
 }

@@ -7,8 +7,8 @@
               <label>Academics</label>
           </div>
           <div class="form-group col-2">
-            <select [(ngModel)]="selectedAcademic" class="form-control">
-                <option value=""></option>
+            <select [(ngModel)]="selectedAcademic"  class="form-control">
+                <option [value]=""></option>
                 <option *ngFor="let academic of academicsNames" [value] = "academic.AcademicID">{{academic["AcademicName"]}}</option>
             </select>
         </div>
@@ -22,7 +22,7 @@
       </div>
   </div>
 
-<table *ngIf="isSubmit" mat-table #outerSort="matSort" [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8" matSort>
+<table *ngIf="isSubmit" mat-table #outerSort="matSort" [dataSource]="dataSource" multiTemplateDataRows class="table-bordered mat-elevation-z8" matSort>
 	<ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
 		<th mat-header-cell *matHeaderCellDef mat-sort-header> {{column}} </th>
 		<td mat-cell *matCellDef="let element"> {{element[column]}} </td>

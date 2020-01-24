@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { config } from '../Config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmsUtilService {
+
+  private studentProfile = `${config.server.serverURL}/api/student-profile`
 
   constructor(private http: HttpClient) { }
 
@@ -33,6 +36,21 @@ export class EmsUtilService {
       obj.isImageLoading = false;
       console.log(error);
     });
+  }
+
+  loadImage(filePath){
+
+    const formData = new FormData();
+    formData.append('image', filePath);
+
+    const params = new HttpParams();
+
+    const options = {
+        params,
+        reportProgress: true,
+    };
+    const req = new HttpRequest('POST', `${this.studentProfile}`, formData, options);
+    return this.http.request(req);
   }
 
 
