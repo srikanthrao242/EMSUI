@@ -1,3 +1,5 @@
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+
 export default interface StudentDetails{
   kind:'StudentDetails',
   StudentID: number,
@@ -40,5 +42,65 @@ export interface ParentDetails{
 }
 
 export interface StudentAdmissionRequest{
-  kind: 'StudentAdmissionRequest'
+  kind: 'StudentAdmissionRequest',
+  FirstName: string,
+  LastName: string,
+  FatherName: string,
+  MotherName: string,
+  FatherOccupation: string,
+  MotherOccupation: string,
+  FatherQualification: string,
+  MotherQualification: string,
+  BloodGroup: string,
+  Religion: string,
+  DOB: string,
+  Gender: string,
+  Mobile: string,
+  Address: string,
+  City: string,
+  State: string,
+  PinCode: string,
+  Email: string,
+  Country: string,
+  AdmisionFee: number,
+  PaidFee: number,
+  selectedAcademic:number,
+  selectedClass:number,
+  selectedSection:number,
+  InstitutionName:string,
+  Course:string,
+  Year:number,
+  TotalMarksObtained:number
+
 }
+  export var  dataForm = {
+    'FirstName': ['', Validators.required],
+    'LastName':['',Validators.required],
+    'FatherName':  ['',Validators.required],
+    'MotherName':  ['',Validators.required],
+    'FatherOccupation': ['',Validators.required],
+    'MotherOccupation': ['',Validators.required],
+    'FatherQualification': ['',Validators.required],
+    'MotherQualification':  ['',Validators.required],
+    'BloodGroup': ['',Validators.required],
+    'Religion': ['',Validators.required],
+    'DOB':  ['',Validators.required],
+    'Gender': ['',Validators.required],
+    'Mobile': ['',Validators.required],
+    'Address':['',Validators.required],
+    'City': ['',Validators.required],
+    'State': ['',Validators.required],
+    'PinCode': ['',Validators.required],
+    'Email': ['',Validators.required],
+    'Country': ['',Validators.required],
+    'AdmisionFee': ['',Validators.required],
+    'PaidFee': ['',Validators.required],
+    'selectedAcademic': ['',Validators.required],
+    'selectedClass':['',Validators.required],
+    'selectedSection': ['',Validators.required],
+    'InstitutionName': ['',Validators.required],
+    'Course': ['',Validators.required],
+    'Year': ['',Validators.required],
+    'TotalMarksObtained': ['',Validators.required]
+  }
+

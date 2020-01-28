@@ -5,6 +5,9 @@ import { StudentClassService } from '../student-classes/student-class.service';
 import { Classes, ClassSections } from '../models/classesAndSections';
 import { EmsUtilService } from '../emlsUtil/ems-util.service';
 import { HttpResponse } from '@angular/common/http';
+import StudentDetails, { StudentAdmissionRequest, dataForm, ParentDetails } from '../models/students';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import addDaysFromDate, { addDays } from '../helpers/util';
 
 @Component({
   selector: 'app-student-admission',
@@ -22,8 +25,12 @@ export class StudentAdmissionComponent implements OnInit {
   imageToShow = '../../assets/images/icons8-user-male-skin-type-5-50.png';
   isImageLoading = false;
   studentProfileImage:string;
+  data ={} as StudentAdmissionRequest;
+  dataForm:FormGroup;
 
-  constructor(private academicService: AcademicService,
+  constructor(
+    private formBuilder: FormBuilder,
+    private academicService: AcademicService,
     private studentClassService: StudentClassService,
     private emsUtilService: EmsUtilService) { }
 
@@ -32,30 +39,23 @@ export class StudentAdmissionComponent implements OnInit {
       data => this.academicsNames = data,
       error => console.error('There was an error!', error)
     );
+    this.dataForm = this.formBuilder.group(dataForm);
   }
+  get f() { return this.dataForm.controls; }
 
   onChangeAcademic(){
-    this.studentClassService.getClasses(+this.selectedAcademic).subscribe(
+    this.studentClassService.getClasses(+this.f.selectedAcademic.value).subscribe(
       data => this.classes = data,
       error => console.error('There was an error!', error)
     );
   }
 
   onChangeClass(){
-    this.studentClassService.getSections(+this.selectedClass).subscribe(
+    this.studentClassService.getSections(+this.f.selectedClass.value).subscribe(
       data => this.sections = data,
       error => console.error('There was an error!', error)
     );
   }
-
-  prepareParent(){
-
-  }
-
-  prepareStudent(){
-
-  }
-
 
   onSelectFile(event) {
     if (event.target.files && event.target.files[0]) {
@@ -82,4 +82,32 @@ export class StudentAdmissionComponent implements OnInit {
       }
     }
   }
+
+  saveStudent(){
+    if (this.dataForm.invalid) {
+      return;
+    }
+
+    var req = this.dataForm.value;
+    req['AcademicID'] = +this.f.selectedAcademic.value;
+    req['PaidDate'] = addDaysFromDate(new Date(),0);
+    req['AdmissionDate'] = addDaysFromDate(new Date(),0);
+    req['IsActive'] = true;
+    req['ProfileImage'] = this.studentProfileImage;
+    req['ClassID'] = +this.f.selectedClass.value;
+    req['SectionID'] = +this.f.selectedSection.value;
+
+    this.academicService.addNewAdmission(req)
+      .subscribe(
+      data => {
+        if(data instanceof HttpResponse){
+          console.log("successfully loaded file", data);
+        }
+      },
+      error => {
+        console.log(error);
+      });
+
+  }
+
 }

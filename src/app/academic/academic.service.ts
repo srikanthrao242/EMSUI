@@ -13,6 +13,8 @@ export class AcademicService {
 
   academicURL = `${config.server.serverURL}/api/academics/${this.user.id}`
 
+  studentURL = `${config.server.serverURL}/api/new-admission/${this.user.id}`
+
   constructor(private http: HttpClient) { }
 
   dataChange: BehaviorSubject<Academic[]> = new BehaviorSubject<Academic[]>([]);
@@ -37,6 +39,10 @@ export class AcademicService {
 
   startNewAcademic(academic:Academic){
     return this.http.post(`${this.academicURL}/new-academic`, academic);
+  }
+
+  addNewAdmission(req:any){
+    return this.http.post(`${this.studentURL}`, req);
   }
 
 
