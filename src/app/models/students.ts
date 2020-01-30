@@ -1,4 +1,5 @@
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ColumnsSchema } from '../companies/CompaniesUtil';
 
 export default interface StudentDetails{
   kind:'StudentDetails',
@@ -104,3 +105,21 @@ export interface StudentAdmissionRequest{
     'TotalMarksObtained': ['',Validators.required]
   }
 
+  export const columnsDesc: ColumnsSchema[] = [
+    { name: 'StudentID', label: 'Student ID', type: 'number' ,validators: ['']},
+    { name: 'FirstName', label: 'First Name', type:'text' ,validators: ['',Validators.required]},
+    { name: 'LastName', label: 'Last Name' , type: 'text',validators: ['',Validators.required]},
+    { name: 'DOB', label: 'DOB', type: 'text' ,validators: ['', Validators.required]},
+    { name: 'BloodGroup', label: 'Blood Group', type: 'text' ,validators: ['', Validators.required]},
+    { name: 'Gender', label: 'Gender', type: 'text' ,validators: ['', Validators.required]},
+    {name: 'Religion', label: 'Religion', type: 'text',validators: ['']},
+    {name: 'Address', label: 'Address', type: 'text',validators: ['', [Validators.required]]},
+    {name: 'City', label: 'City', type: 'text',validators: ['']},
+    { name: 'State', label: 'State' , type: 'text',validators: ['']},
+    { name: 'PinCode', label: 'PinCode', type: 'text' ,validators: ['']},
+    { name: 'Mobile', label: 'Mobile', type: 'text' ,validators: ['']},
+    { name: 'Country', label: 'Country', type: 'text' ,validators: ['']},
+    { name: 'Email', label: 'Email', type: 'text' ,validators: ['']},
+    { name: 'IsActive', label: 'IsActive', type: 'text' ,validators: ['']},
+    { name: 'ProfileImage', label: 'ProfileImage', type: 'text' ,validators: ['']}
+  ];
