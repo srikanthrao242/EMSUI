@@ -49,6 +49,7 @@ import { AcademicListComponent } from './academic-list/academic-list.component';
 import { ListClassesComponent } from './student-classes/list-classes/list-classes.component';
 import { StudentAdmissionComponent } from './student-admission/student-admission.component';
 import { StudentListComponent } from './student-list/student-list.component';
+import { StudentEditComponent } from './student-edit/student-edit.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +75,8 @@ import { StudentListComponent } from './student-list/student-list.component';
     AcademicListComponent,
     ListClassesComponent,
     StudentAdmissionComponent,
-    StudentListComponent
+    StudentListComponent,
+    StudentEditComponent
   ],
   imports: [
     BrowserModule,

@@ -14,6 +14,7 @@ import { StudentClassService } from '../student-classes/student-class.service';
 import StudentDetails, {dataForm, columnsDesc} from '../models/students';
 import { Router } from '@angular/router';
 import { ColumnsSchema } from '../companies/CompaniesUtil';
+import { EmsUtilService } from '../emlsUtil/ems-util.service';
 
 @Component({
   selector: 'app-student-list',
@@ -41,7 +42,8 @@ export class StudentListComponent implements OnInit {
     private studentClassService: StudentClassService,
     public httpClient: HttpClient,
     public dialog: MatDialog,
-    private router: Router) { }
+    private router: Router,
+    public emsUtilService: EmsUtilService) { }
 
 
   studentDatabase: StudentClassService
@@ -49,7 +51,7 @@ export class StudentListComponent implements OnInit {
   index: number;
   id: number;
 
-  displayedColumns: string[] = ['StudentID', 'FirstName', 'LastName', 'DOB', 'BloodGroup', 'Gender', 'Religion', 'Address', 'City', 'State', 'PinCode', 'Mobile', 'Country', 'Email', 'IsActive', 'ProfileImage'];
+  displayedColumns: string[] = ['StudentID','ProfileImage', 'FirstName', 'LastName', 'DOB', 'BloodGroup', 'Gender', 'Active', 'Edit'];
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -87,20 +89,28 @@ export class StudentListComponent implements OnInit {
   }
 
   loadData() {
-    this.studentDatabase = new StudentClassService(this.httpClient,this.router);
-    this.dataSource = new StudentDataSource(this.studentDatabase, this.paginator, this.sort);
-    fromEvent(this.filter.nativeElement, 'keyup')
-      .subscribe(() => {
-        if (!this.dataSource) {
-          return;
-        }
-        this.dataSource.filter = this.filter.nativeElement.value;
-      });
+    //if(this.f.selectedAcademic.value && this.f.selectedClass.value  && this.f.selectedSection.value ){
+      var req = {'academicID': +this.f.selectedAcademic.value,
+      'classID':+this.f.selectedClass.value, 'sectionID' : +this.f.selectedSection.value};
+      this.studentDatabase = new StudentClassService(this.httpClient,this.router, this.emsUtilService);
+      this.dataSource = new StudentDataSource(this.studentDatabase, this.paginator, this.sort, req);
+      fromEvent(this.filter.nativeElement, 'keyup')
+        .subscribe(() => {
+          if (!this.dataSource) {
+            return;
+          }
+          this.dataSource.filter = this.filter.nativeElement.value;
+        });
+    //}
   }
 
   getStudentList(){
     this.displayTable = true;
     this.loadData();
+  }
+
+  editStudent(i:number, row:object){
+    this.router.navigate(['/student-edit'], { queryParams: row });
   }
 
 }
@@ -123,7 +133,8 @@ export class StudentDataSource extends DataSource<StudentDetails> {
 
   constructor(public _exampleDatabase: StudentClassService,
               public _paginator: MatPaginator,
-              public _sort: MatSort) {
+              public _sort: MatSort,
+              public _req: any) {
     super();
     // Reset to the first page when the user changes the filter.
     this._filterChange.subscribe(() => this._paginator.pageIndex = 0);
@@ -144,8 +155,9 @@ export class StudentDataSource extends DataSource<StudentDetails> {
       this._paginator.page
     ];
 
-    this._exampleDatabase.getStudentDetails();
-
+    if(this._req.academicID && this._req.classID  && this._req.sectionID ){
+      this._exampleDatabase.getStudentDetails(this._req);
+    }
     return merge(...displayDataChanges).pipe(map( () => {
         // Filter data
         this.filteredData = this._exampleDatabase.data.slice().filter((issue: StudentDetails) => {

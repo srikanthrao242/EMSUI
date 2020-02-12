@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { config } from '../Config';
 import { Router } from '@angular/router';
 import { Classes, ClassSections } from '../models/classesAndSections';
 import StudentDetails from '../models/students';
 import { BehaviorSubject } from 'rxjs';
+import { EmsUtilService } from '../emlsUtil/ems-util.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,9 @@ export class StudentClassService {
 
   studentDetailsURL = `${config.server.serverURL}/api/student-details/${this.user.id}/students`;
 
-  constructor(private http: HttpClient, private router: Router) { }
+  studentProfileURL = `${config.server.serverURL}/api/student-details/${this.user.id}/profile`;
+
+  constructor(private http: HttpClient, private router: Router, private emsUtilService: EmsUtilService) { }
 
   dialogData: any;
 
@@ -60,8 +63,10 @@ export class StudentClassService {
   }
 
 
-  getStudentDetails() : void {
-    this.http.get<StudentDetails[]>(this.studentDetailsURL).subscribe(data => {
+  getStudentDetails(req:any) : void {
+    let params = new HttpParams().set("academicID",req.academicID).set("classID", req.classID).set("sectionID",req.sectionID);
+    this.http.get<StudentDetails[]>(this.studentDetailsURL, {params:params}).subscribe(data => {
+      data.forEach(v=> v.ProfileImage = `${this.studentProfileURL}/${v.StudentID}`)
       this.dataChange.next(data);
     },
     (error: HttpErrorResponse) => {
@@ -69,4 +74,5 @@ export class StudentClassService {
     });
 
   }
+
 }

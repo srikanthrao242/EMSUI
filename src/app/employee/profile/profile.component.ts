@@ -159,7 +159,6 @@ export class ProfileComponent implements OnInit {
       salBeforeTax: this.salaryBeforeTax,
       tax : this.totalTax
     });
-    console.log(this.employeeProfile.value)
     // stop here if form is invalid
     if (this.employeeProfile.invalid) {
         return;

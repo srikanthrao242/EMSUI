@@ -120,6 +120,5 @@ export interface StudentAdmissionRequest{
     { name: 'Mobile', label: 'Mobile', type: 'text' ,validators: ['']},
     { name: 'Country', label: 'Country', type: 'text' ,validators: ['']},
     { name: 'Email', label: 'Email', type: 'text' ,validators: ['']},
-    { name: 'IsActive', label: 'IsActive', type: 'text' ,validators: ['']},
-    { name: 'ProfileImage', label: 'ProfileImage', type: 'text' ,validators: ['']}
+    { name: 'IsActive', label: 'IsActive', type: 'text' ,validators: ['']}
   ];
