@@ -15,6 +15,7 @@ import StudentDetails, {dataForm, columnsDesc} from '../models/students';
 import { Router } from '@angular/router';
 import { ColumnsSchema } from '../companies/CompaniesUtil';
 import { EmsUtilService } from '../emlsUtil/ems-util.service';
+import { NotificationService } from '../toastr-notification/toastr-notification.service';
 
 @Component({
   selector: 'app-student-list',
@@ -43,7 +44,8 @@ export class StudentListComponent implements OnInit {
     public httpClient: HttpClient,
     public dialog: MatDialog,
     private router: Router,
-    public emsUtilService: EmsUtilService) { }
+    public emsUtilService: EmsUtilService,
+    public notificationServices: NotificationService) { }
 
 
   studentDatabase: StudentClassService
@@ -92,7 +94,7 @@ export class StudentListComponent implements OnInit {
     //if(this.f.selectedAcademic.value && this.f.selectedClass.value  && this.f.selectedSection.value ){
       var req = {'academicID': +this.f.selectedAcademic.value,
       'classID':+this.f.selectedClass.value, 'sectionID' : +this.f.selectedSection.value};
-      this.studentDatabase = new StudentClassService(this.httpClient,this.router, this.emsUtilService);
+      this.studentDatabase = new StudentClassService(this.httpClient,this.router, this.emsUtilService, this.notificationServices);
       this.dataSource = new StudentDataSource(this.studentDatabase, this.paginator, this.sort, req);
       fromEvent(this.filter.nativeElement, 'keyup')
         .subscribe(() => {
@@ -109,8 +111,10 @@ export class StudentListComponent implements OnInit {
     this.loadData();
   }
 
-  editStudent(i:number, row:object){
-    this.router.navigate(['/student-edit'], { queryParams: row });
+  editStudent(i:number, row:StudentDetails){
+    this.studentClassService.getParentDetails(+ row.StudentID).subscribe(data=>{
+      this.router.navigate(['/student-edit'], { queryParams: Object.assign(data,row) });
+    })
   }
 
 }

@@ -1,4 +1,147 @@
-<mat-tab-group>
-  <mat-tab label="Student"> Student </mat-tab>
-  <mat-tab label="Parent"> Parent </mat-tab>
-</mat-tab-group>
+<form [formGroup]="dataForm">
+  <div class="card m-3">
+    <div class="card-body">
+    <mat-tab-group>
+      <mat-tab label="Student">
+        <br>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Profile Image</label>
+          <img [src]="imageToShow"  *ngIf="!isImageLoading; else noImageFound" height="100"> <br/>
+          <ng-template #noImageFound>
+                <img [src]="url_profile" alt="Fallbackimage">
+          </ng-template>
+          <input type="file" (change)="onSelectFile($event)" />
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">FirstName</label>
+          <div class="col-sm-3">
+            <input type="text" formControlName="FirstName" class="form-control" required />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">LastName</label>
+          <div class="col-sm-3">
+            <input type="text" formControlName="LastName" class="form-control" required />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">DOB</label>
+          <div class="col-sm-3">
+            <input type="date" formControlName="DOB" class="form-control" required />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">BloodGroup</label>
+          <div class="col-sm-3">
+            <input type="text" formControlName="BloodGroup" class="form-control" required />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Gender</label>
+          <div class="col-sm-3">
+            <select class="form-control" formControlName = "Gender" required >
+              <option>Male</option>
+              <option>FeMale</option>
+            </select>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="Parent">
+        <br>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">FatherName</label>
+          <div class="col-sm-3">
+            <input type="text" formControlName="FatherName" class="form-control" required />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">MotherName</label>
+          <div class="col-sm-3">
+            <input type="text" formControlName="MotherName" class="form-control" required />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">FatherOccupation</label>
+          <div class="col-sm-3">
+            <input type="text" formControlName="FatherOccupation" class="form-control" required />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">FatherQualification</label>
+          <div class="col-sm-3">
+            <input type="text" formControlName="FatherQualification" class="form-control" required />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">MotherOccupation</label>
+          <div class="col-sm-3">
+            <input type="text" formControlName="MotherOccupation" class="form-control" required />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">MotherQualification</label>
+          <div class="col-sm-3">
+            <input type="text" formControlName="MotherQualification" class="form-control" required />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Religion</label>
+          <div class="col-sm-3">
+            <input type="text" formControlName="Religion" class="form-control" required />
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="Contact-Details">
+        <br>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Address</label>
+          <div class="col-sm-3">
+            <input type="text" formControlName="Address" class="form-control" required />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">City</label>
+          <div class="col-sm-3">
+            <input type="text" formControlName="City" class="form-control" required />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">State</label>
+          <div class="col-sm-3">
+            <input type="text" formControlName="State" class="form-control" required />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">PinCode</label>
+          <div class="col-sm-3">
+            <input type="text" formControlName="PinCode" class="form-control" required />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Country</label>
+          <div class="col-sm-3">
+            <input type="text" formControlName="Country" class="form-control" required />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Mobile</label>
+          <div class="col-sm-3">
+            <input type="text" formControlName="Mobile" class="form-control" required />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Email</label>
+          <div class="col-sm-3">
+            <input type="text" formControlName="Email" class="form-control" required />
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+    </div>
+    <div class="card-footer text-center">
+      <button class="btn btn-primary mr-1" (click) = "updateStudent()">Update</button>
+      <button class="btn btn-secondary mr-1" type="cancel" >Cancel</button>
+  </div>
+</div>
+</form>
