@@ -15,6 +15,7 @@ import { ListClassesComponent } from './student-classes/list-classes/list-classe
 import { StudentAdmissionComponent } from './student-admission/student-admission.component';
 import { StudentListComponent } from './student-list/student-list.component';
 import { StudentEditComponent } from './student-edit/student-edit.component';
+import { StudentExaminationsComponent } from './student-examinations/student-examinations.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full' , canActivate: [AuthGuardService]},
@@ -32,6 +33,7 @@ const routes: Routes = [
   { path: 'new-admission', component: StudentAdmissionComponent , canActivate: [AuthGuardService]},
   { path: 'student-list', component: StudentListComponent , canActivate: [AuthGuardService]},
   { path: 'student-edit', component: StudentEditComponent , canActivate: [AuthGuardService]},
+  { path: 'student-exams', component: StudentExaminationsComponent , canActivate: [AuthGuardService]},
 
 
   // otherwise redirect to home

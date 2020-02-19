@@ -50,6 +50,7 @@ import { ListClassesComponent } from './student-classes/list-classes/list-classe
 import { StudentAdmissionComponent } from './student-admission/student-admission.component';
 import { StudentListComponent } from './student-list/student-list.component';
 import { StudentEditComponent } from './student-edit/student-edit.component';
+import { StudentExaminationsComponent } from './student-examinations/student-examinations.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,8 @@ import { StudentEditComponent } from './student-edit/student-edit.component';
     ListClassesComponent,
     StudentAdmissionComponent,
     StudentListComponent,
-    StudentEditComponent
+    StudentEditComponent,
+    StudentExaminationsComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,23 @@
+<div class="card m-3">
+  <h5 class="card-header">Examinations</h5>
+  <div class="card-body">
+      <div class="form-row">
+          <div class="form-group col-2">
+              <label>Academics</label>
+          </div>
+          <div class="form-group col-2">
+            <select [(ngModel)]="selectedAcademic"  class="form-control">
+                <option [value]=""></option>
+                <option *ngFor="let academic of academicsNames" [value] = "academic.AcademicID">{{academic["AcademicName"]}}</option>
+            </select>
+        </div>
+        <div class="form-group col-2">
+          <button class="btn btn-primary mr-1" (click) = 'onSubmitAcademic()'>List Exams</button>
+        </div>
+        <div class="form-group col-2">
+          <button class="btn btn-primary mr-1" [routerLink]="'/classes'">AddNew</button>
+        </div>
+
+      </div>
+  </div>
+</div>
