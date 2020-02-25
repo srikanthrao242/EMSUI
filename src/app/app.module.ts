@@ -51,6 +51,7 @@ import { StudentAdmissionComponent } from './student-admission/student-admission
 import { StudentListComponent } from './student-list/student-list.component';
 import { StudentEditComponent } from './student-edit/student-edit.component';
 import { StudentExaminationsComponent } from './student-examinations/student-examinations.component';
+import { AddExamsComponent } from './add-exams/add-exams.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +79,8 @@ import { StudentExaminationsComponent } from './student-examinations/student-exa
     StudentAdmissionComponent,
     StudentListComponent,
     StudentEditComponent,
-    StudentExaminationsComponent
+    StudentExaminationsComponent,
+    AddExamsComponent
   ],
   imports: [
     BrowserModule,

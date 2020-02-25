@@ -1,0 +1,43 @@
+<form [formGroup]="newExam" (ngSubmit)="saveExam()" >
+  <div class="card m-3" >
+    <h5 class="card-header">New Exams</h5>
+    <div class="card-body">
+      <div class="form-group row">
+        <label  class="col-sm-2 col-form-label">Examination Name</label>
+        <div class="col-sm-3">
+          <input type="text"  formControlName="ExamName" class="form-control"  [ngClass]="{ 'is-invalid': submitted && f.ExamName.errors }" required >
+          <div *ngIf="submitted && f.ExamName.errors" class="invalid-feedback">
+            <div *ngIf="f.ExamName.errors.required">ExamName is required</div>
+          </div>
+        </div>
+        <label  class="col-sm-2 col-form-label">Examination For</label>
+        <div class="col-sm-3">
+          <select formControlName="ExampFor" class="form-control" required>
+            <option [value]="School">School</option>
+            <option [value]="Class">Class</option>
+        </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label  class="col-sm-2 col-form-label">Examination Date</label>
+        <div class="col-sm-3">
+          <input type="date" formControlName = "ExamDate" class="form-control"  [ngClass]="{ 'is-invalid': submitted && f.ExamDate.errors }" required >
+          <div *ngIf="submitted && f.ExamDate.errors" class="invalid-feedback">
+            <div *ngIf="f.ExamDate.errors.required">ExamDate is required</div>
+          </div>
+        </div>
+        <label  class="col-sm-2 col-form-label">Total Marks</label>
+        <div class="col-sm-3">
+          <input type="number"  formControlName="TotalMarks" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.TotalMarks.errors }" required >
+          <div *ngIf="submitted && f.TotalMarks.errors" class="invalid-feedback">
+            <div *ngIf="f.TotalMarks.errors.required">TotalMarks is required</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer text-center">
+      <button class="btn btn-primary mr-1">Save Exam</button>
+      <button class="btn btn-secondary" type="button">Cancel</button>
+    </div>
+  </div>
+</form>
