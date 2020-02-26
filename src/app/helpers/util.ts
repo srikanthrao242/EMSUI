@@ -21,4 +21,8 @@ export function addDaysFromDate(d: Date, days: number) : string {
   return new Date(d.setDate(d.getDate() + days)).toISOString().replace("T", " ").replace("Z","");
 }
 
+export function getTodayDate() : string{
+  return new Date().toISOString().slice(0, 10);
+}
+
 export default addDaysFromDate
