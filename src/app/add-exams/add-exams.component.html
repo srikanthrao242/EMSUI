@@ -3,19 +3,39 @@
     <h5 class="card-header">New Exams</h5>
     <div class="card-body">
       <div class="form-group row">
+        <label  class="col-sm-2 col-form-label">Academic</label>
+        <div class="col-sm-3">
+          <select (ngModelChange)="onChangeAcademic($event)" formControlName="selectedAcademic" class="form-control" required >
+              <option [value]=""></option>
+              <option *ngFor="let academic of academicsNames" [value] = "academic.AcademicID">{{academic["AcademicName"]}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label  class="col-sm-2 col-form-label">Class</label>
+        <div class="col-sm-3">
+          <select (ngModelChange)="onChangeClass($event)" formControlName="selectedClass" class="form-control" required >
+              <option value = "All">All</option>
+              <option *ngFor="let clas of classes" [value] = "clas.ClassID">{{clas["ClassName"]}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label  class="col-sm-2 col-form-label">Sections</label>
+        <div class="col-sm-3">
+          <select formControlName="selectedSection" class="form-control" required >
+              <option value = "All">All</option>
+              <option *ngFor="let sec of sections" [value] = "sec.SectionID">{{sec["SectionName"]}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row">
         <label  class="col-sm-2 col-form-label">Examination Name</label>
         <div class="col-sm-3">
           <input type="text"  formControlName="ExamName" class="form-control"  [ngClass]="{ 'is-invalid': submitted && f.ExamName.errors }" required >
           <div *ngIf="submitted && f.ExamName.errors" class="invalid-feedback">
             <div *ngIf="f.ExamName.errors.required">ExamName is required</div>
           </div>
-        </div>
-        <label  class="col-sm-2 col-form-label">Examination For</label>
-        <div class="col-sm-3">
-          <select formControlName="ExampFor" class="form-control" required>
-            <option [value]="School">School</option>
-            <option [value]="Class">Class</option>
-        </select>
         </div>
       </div>
       <div class="form-group row">
@@ -26,6 +46,8 @@
             <div *ngIf="f.ExamDate.errors.required">ExamDate is required</div>
           </div>
         </div>
+      </div>
+      <div class="form-group row">
         <label  class="col-sm-2 col-form-label">Total Marks</label>
         <div class="col-sm-3">
           <input type="number"  formControlName="TotalMarks" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.TotalMarks.errors }" required >

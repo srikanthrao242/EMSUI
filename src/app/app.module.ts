@@ -52,6 +52,7 @@ import { StudentListComponent } from './student-list/student-list.component';
 import { StudentEditComponent } from './student-edit/student-edit.component';
 import { StudentExaminationsComponent } from './student-examinations/student-examinations.component';
 import { AddExamsComponent } from './add-exams/add-exams.component';
+import { AddExamSubjectsComponent } from './add-exam-subjects/add-exam-subjects.component';
 
 @NgModule({
   declarations: [
@@ -80,7 +81,8 @@ import { AddExamsComponent } from './add-exams/add-exams.component';
     StudentListComponent,
     StudentEditComponent,
     StudentExaminationsComponent,
-    AddExamsComponent
+    AddExamsComponent,
+    AddExamSubjectsComponent
   ],
   imports: [
     BrowserModule,

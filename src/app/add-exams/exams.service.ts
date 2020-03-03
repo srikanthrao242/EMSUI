@@ -17,5 +17,13 @@ export class ExamsService {
     return this.http.post(`${this.examURL}/add-exam`, req);
   }
 
+  getExamSubjects(examID:number){
+    return this.http.get(`${this.examURL}/exam-subject/${examID}`);
+  }
+
+  addNewSub(req:any){
+    return this.http.post(`${this.examURL}/add-exam-sub`, req);
+  }
+
 
 }

@@ -1,0 +1,62 @@
+<form [formGroup]="newExamSub" (ngSubmit)="saveExamSub()">
+  <div class="card m-3" >
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Subject</th>
+            <th scope="col">ExamDate</th>
+            <th scope="col">CreatedDate</th>
+            <th scope="col">TotalMarks</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of subjectsData; let num = index">
+            <th scope="row">{{num}}</th>
+            <td>{{row.Subject}}</td>
+            <td>{{row.ExamDate}}</td>
+            <td>{{row.CreatedDate}}</td>
+            <td>{{row.TotalMarks}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="card m-3" >
+    <h5 class="card-header">{{params.ExamName}}</h5>
+    <div class="card-body">
+      <div class="form-group row">
+        <label  class="col-sm-2 col-form-label">Subject</label>
+        <div class="col-sm-3">
+          <input type="text"  formControlName="Subject" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.Subject.errors }" required >
+          <div *ngIf="submitted && f.Subject.errors" class="invalid-feedback">
+            <div *ngIf="f.Subject.errors.required">Subject is required</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label  class="col-sm-2 col-form-label">ExamDate</label>
+        <div class="col-sm-3">
+          <input type="date"  formControlName="ExamDate" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.ExamDate.errors }" required >
+          <div *ngIf="submitted && f.ExamDate.errors" class="invalid-feedback">
+            <div *ngIf="f.ExamDate.errors.required">ExamDate is required</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label  class="col-sm-2 col-form-label">TotalMarks</label>
+        <div class="col-sm-3">
+          <input type="number"  formControlName="TotalMarks" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.TotalMarks.errors }" required >
+          <div *ngIf="submitted && f.TotalMarks.errors" class="invalid-feedback">
+            <div *ngIf="f.TotalMarks.errors.required">TotalMarks is required</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer text-center">
+      <button class="btn btn-primary mr-1">Save Subject</button>
+      <button class="btn btn-secondary" type="button">Cancel</button>
+    </div>
+  </div>
+</form>
