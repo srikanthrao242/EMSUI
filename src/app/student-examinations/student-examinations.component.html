@@ -21,3 +21,35 @@
       </div>
   </div>
 </div>
+<div class="card m-3" >
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">ExamName</th>
+          <th scope="col">ExamFor</th>
+          <th scope="col">CreatedDate</th>
+          <th scope="col">TotalMarks</th>
+          <th scope="col">ExamDate</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of examData; let num = index">
+          <th scope="row">{{num}}</th>
+          <td>{{row.ExamName}}</td>
+          <td>{{row.ExamFor}}</td>
+          <td>{{row.CreatedDate}}</td>
+          <td>{{row.TotalMarks}}</td>
+          <td>{{row.ExamDate}}</td>
+          <td>
+            <button mat-icon-button color="accent" (click)="startEdit(i, row.ExamID, row.ExamName, row.ExamFor, row.TotalMarks, row.ExamDate)">
+            <mat-icon aria-label="Edit">edit</mat-icon>
+          </button>
+        </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
