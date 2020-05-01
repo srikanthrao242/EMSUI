@@ -53,6 +53,7 @@ import { StudentEditComponent } from './student-edit/student-edit.component';
 import { StudentExaminationsComponent } from './student-examinations/student-examinations.component';
 import { AddExamsComponent } from './add-exams/add-exams.component';
 import { AddExamSubjectsComponent } from './add-exam-subjects/add-exam-subjects.component';
+import { EditExamsComponent } from './edit-exams/edit-exams.component';
 
 @NgModule({
   declarations: [
@@ -82,7 +83,8 @@ import { AddExamSubjectsComponent } from './add-exam-subjects/add-exam-subjects.
     StudentEditComponent,
     StudentExaminationsComponent,
     AddExamsComponent,
-    AddExamSubjectsComponent
+    AddExamSubjectsComponent,
+    EditExamsComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,39 @@
+<form [formGroup]="editExam">
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputAcademic4">Academic</label>
+      <input type="text" class="form-control" id="inputAcademic4" placeholder="Academic" value="selectedAcademic">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputExamName4">ExamName</label>
+      <input type="text" class="form-control" id="inputExamName4" placeholder="ExamName" value="ExamName">
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputclass4">Class</label>
+      <select (ngModelChange)="onChangeClass($event)" formControlName="selectedClass" class="form-control" required >
+        <option value = "All">All</option>
+        <option *ngFor="let clas of classes" [value] = "clas.ClassID">{{clas["ClassName"]}}</option>
+      </select>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputsection4">Section</label>
+      <select formControlName="selectedSection" class="form-control"  required >
+        <option value = "All">All</option>
+        <option *ngFor="let sec of sections" [value] = "sec.SectionID">{{sec["SectionName"]}}</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="ExamDate">ExamDate</label>
+      <input type="date" class="form-control" id="ExamDate" value="TotalMarks">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="TotalMarks">TotalMarks</label>
+      <input type="TotalMarks" class="form-control" id="TotalMarks" value="TotalMarks">
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary">Save Changes</button>
+</form>
