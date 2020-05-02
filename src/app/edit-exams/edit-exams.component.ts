@@ -5,6 +5,9 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ExamsService } from '../add-exams/exams.service';
 import { NotificationService } from '../toastr-notification/toastr-notification.service';
+import { addDays, getTodayDate } from '../helpers/util';
+import { StudentClassService } from '../student-classes/student-class.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-exams',
@@ -20,9 +23,10 @@ export class EditExamsComponent implements OnInit {
   classes : Classes[];
   sections: ClassSections[];
   ExamName:string;
-  ExamDate:Date;
+  ExamDate:string;
   TotalMarks:number;
-
+  subjectsData: Object;
+  examID:number;
 
   editExam = new FormGroup({
     ExamName: new FormControl('',[Validators.required]),
@@ -35,19 +39,78 @@ export class EditExamsComponent implements OnInit {
 
   get f() { return this.editExam.controls; }
 
+  getClasses(academicId:number, examfor:string){
+    this.studentClassService.getClasses(academicId).subscribe(
+      data => this.classes = data.map(v => {
+        v["isSelect"] = ""+(v.ClassID == +examfor);
+        return v;
+      }),
+      error => console.error('There was an error!', error)
+    );
+  }
+
+  onChangeClass(SectionID:string){
+    if(this.f.selectedClass.value && this.f.selectedClass.value !== "All"){
+      this.studentClassService.getSections(+this.f.selectedClass.value).subscribe(
+        data => this.sections = data.map(v => {
+          v["isSelect"] = ""+(v.SectionID == +SectionID);
+          return v;
+        }),
+        error => console.error('There was an error!', error)
+      );
+    }
+  }
+
+  updateExamTable(examID:number){
+    this.examServices.getExamSubjects(examID).subscribe(
+      data => {
+          this.subjectsData = data;
+      },
+      error => {
+        console.log(error)
+      });
+  }
+
+  addNewSub(){
+      var inputs = this.editExam.value;
+      var req = {
+        'ExamName' : inputs.ExamName ,
+        'ExamDate' : inputs.ExamDate ,
+        'TotalMarks': (+inputs.TotalMarks)
+      }
+      if(this.f.selectedClass.value !== "All"){
+        req['ExamFor'] = (+this.f.selectedClass.value);
+      }else{
+        req['ExamFor'] = 0;
+      }
+      req['AcademicID'] = (+this.f.selectedAcademic.value);
+
+      this.notifications.success("Successfully created new Exam");
+      req["ExamID"] = this.examID;
+      this.route.navigate(['/add-exam-subs'], { queryParams: req });
+
+  }
+
   constructor(
     private router:ActivatedRoute,
     private examServices: ExamsService,
-    private notifications: NotificationService
+    private notifications: NotificationService,
+    private studentClassService: StudentClassService,
+    private route: Router
   ) {
 
     this.router
       .queryParams
       .subscribe(params =>{
         console.log(params);
+        this.examID = (+params.ExamID);
+        this.getClasses(+params.AcademicID, params.ExamFor);
+        this.updateExamTable(+params.ExamID);
+        this.onChangeClass(params.sectionID)
         this.selectedAcademic = params.selectedAcademic;
         this.ExamName = params.ExamName;
         this.ExamDate = params.ExamDate;
+        this.TotalMarks = params.TotalMarks;
         });
 
    }

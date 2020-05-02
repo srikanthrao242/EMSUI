@@ -29,6 +29,7 @@
           <th scope="col">#</th>
           <th scope="col">ExamName</th>
           <th scope="col">ExamFor</th>
+          <th scope="col">SectionID</th>
           <th scope="col">CreatedDate</th>
           <th scope="col">TotalMarks</th>
           <th scope="col">ExamDate</th>
@@ -40,11 +41,12 @@
           <th scope="row">{{num}}</th>
           <td>{{row.ExamName}}</td>
           <td>{{row.ExamFor}}</td>
+          <td>{{row.sectionID}}</td>
           <td>{{row.CreatedDate}}</td>
           <td>{{row.TotalMarks}}</td>
           <td>{{row.ExamDate}}</td>
           <td>
-            <button mat-icon-button color="accent" (click)="startEdit(num, row.ExamID, row.ExamName, row.ExamFor, row.TotalMarks, row.ExamDate)">
+            <button mat-icon-button color="accent" (click)="startEdit(num, row.ExamID, row.sectionID, row.ExamName, row.ExamFor, row.TotalMarks, row.ExamDate)">
             <mat-icon aria-label="Edit">edit</mat-icon>
           </button>
         </td>

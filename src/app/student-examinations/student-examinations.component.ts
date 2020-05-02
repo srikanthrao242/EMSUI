@@ -40,14 +40,17 @@ export class StudentExaminationsComponent implements OnInit {
         this.notifications.error(`Got error while getting exam data`);
       });
   }
-  startEdit(num:number, ExamID:string, ExamName:string, ExamFor:string, TotalMarks:String, ExamDate:string){
+  startEdit(num:number, ExamID:string, sectionID:string, ExamName:string, ExamFor:string, TotalMarks:String, ExamDate:string){
 
     this.notifications.success("Successfully created new Exam");
 
     var req = {
+      'ExamID' : ExamID,
+      'AcademicID' : this.selectedAcademic,
       'ExamName' : ExamName ,
       'ExamFor' : ExamFor,
-      'ExamDate' : addDays(ExamDate,0) ,
+      'ExamDate' : ExamDate ,
+      'sectionID' : sectionID,
       'TotalMarks': (+TotalMarks),
       'selectedAcademic' : this.academicsNames.find(v=> (+v.AcademicID) == (+this.selectedAcademic)).AcademicName,
       'CreatedDate' : addDays(ExamDate,0)
