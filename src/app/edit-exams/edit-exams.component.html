@@ -48,7 +48,7 @@
             <th scope="col">TotalMarks</th>
             <th scope="col">
               <button mat-icon-button color="accent" (click)="addNewSub()">
-                <mat-icon aria-label="Add">Add</mat-icon>
+                <mat-icon aria-label="Add">add_shopping_cart</mat-icon>
               </button>
             </th>
           </tr>
@@ -69,6 +69,14 @@
               <div class="form-group col-md-4">
                 <input type="number" class="form-control" [value]="row.TotalMarks">
               </div>
+            </td>
+            <td>
+              <button mat-icon-button color="accent" (click)="editSub(row.SubjectID)">
+                <mat-icon aria-label="Edit">edit</mat-icon>
+              </button>
+              <button mat-icon-button color="accent" (click)="deleteSub(row.SubjectID)">
+                <mat-icon aria-label="Delete">delete</mat-icon>
+              </button>
             </td>
           </tr>
         </tbody>

@@ -25,5 +25,9 @@ export class ExamsService {
     return this.http.post(`${this.examURL}/add-exam-sub`, req);
   }
 
+  deleteSubject(subjectID:number){
+    return this.http.delete(`${this.examURL}/delete-exam-subject/${subjectID}`);
+  }
+
 
 }

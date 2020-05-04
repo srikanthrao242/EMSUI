@@ -71,6 +71,23 @@ export class EditExamsComponent implements OnInit {
       });
   }
 
+  deleteSub(subjectID:string){
+
+    this.examServices.deleteSubject(+subjectID).subscribe(
+      data => {
+        this.notifications.success(`deleted successfully ${data}`);
+      },
+      error =>{
+        this.notifications.error(`deletion failed ${error}`);
+      }
+    )
+
+  }
+
+  editSub(row:string){
+    alert(row);
+  }
+
   addNewSub(){
       var inputs = this.editExam.value;
       var req = {
