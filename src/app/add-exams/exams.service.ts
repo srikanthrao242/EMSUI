@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { config } from '../Config';
 import { HttpClient } from '@angular/common/http';
+import { ExamSubjects } from '../models/classesAndSections';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +28,10 @@ export class ExamsService {
 
   deleteSubject(subjectID:number){
     return this.http.delete(`${this.examURL}/delete-exam-subject/${subjectID}`);
+  }
+
+  updateSubject(subjectDetails: ExamSubjects){
+    return this.http.put(`${this.examURL}/update-exam-sub`, subjectDetails);
   }
 
 

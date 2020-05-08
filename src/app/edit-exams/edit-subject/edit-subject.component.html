@@ -1,0 +1,27 @@
+<h2 mat-dialog-title>Edit Subject</h2>
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="subjectEdit">
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <label for="inputSub4">Subject</label>
+        <input type="text" formControlName = "Subject" class="form-control" id="inputSub4" placeholder="Subject">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <label for="inputTM">TotalMarks</label>
+        <input type="number" formControlName = "TotalMarks" class="form-control" id="inputTM" placeholder="TotalMarks">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <label for="inputED">ExamDate</label>
+        <input type="date" formControlName = "ExamDate" class="form-control" id="inputED" placeholder="ExamDate">
+      </div>
+    </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button [mat-dialog-close]="true" (click)="updateSubject()" cdkFocusInitial>Save</button>
+</mat-dialog-actions>

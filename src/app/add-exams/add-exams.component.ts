@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { NotificationService } from '../toastr-notification/toastr-notification.service';
 import { ExamsService } from './exams.service';
-import { getTodayDate } from '../helpers/util'
+import { getTodayDate } from '../helpers/util';
 import { first } from 'rxjs/operators';
 import { AcademicService } from '../academic/academic.service';
 import Academic from '../models/academics';

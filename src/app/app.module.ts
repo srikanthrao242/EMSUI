@@ -54,6 +54,7 @@ import { StudentExaminationsComponent } from './student-examinations/student-exa
 import { AddExamsComponent } from './add-exams/add-exams.component';
 import { AddExamSubjectsComponent } from './add-exam-subjects/add-exam-subjects.component';
 import { EditExamsComponent } from './edit-exams/edit-exams.component';
+import { EditSubjectComponent } from './edit-exams/edit-subject/edit-subject.component';
 
 @NgModule({
   declarations: [
@@ -84,7 +85,8 @@ import { EditExamsComponent } from './edit-exams/edit-exams.component';
     StudentExaminationsComponent,
     AddExamsComponent,
     AddExamSubjectsComponent,
-    EditExamsComponent
+    EditExamsComponent,
+    EditSubjectComponent
   ],
   imports: [
     BrowserModule,
@@ -129,6 +131,9 @@ import { EditExamsComponent } from './edit-exams/edit-exams.component';
   ],
   exports: [
     NotificationComponent
+  ],
+  entryComponents: [
+    EditSubjectComponent
   ]
 })
 export class AppModule { }

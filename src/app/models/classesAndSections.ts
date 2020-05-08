@@ -16,3 +16,13 @@ export interface ClassSections{
   RoomDetails: string;
   ClassID:number;
 }
+
+export interface ExamSubjects{
+  kind: 'ExamSubjects';
+  CreatedDate: string;
+  ExamDate :string;
+  ExamID :number;
+  Subject:string;
+  SubjectID:number;
+  TotalMarks:number;
+}
