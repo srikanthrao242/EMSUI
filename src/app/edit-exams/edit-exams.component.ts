@@ -151,6 +151,8 @@ export class EditExamsComponent implements OnInit {
         this.onChangeClass(params.sectionID)
         this.selectedAcademic = params.selectedAcademic;
         this.ExamName = params.ExamName;
+        this.f.ExamName.setValue(params.ExamName);
+        this.f.ExamDate.setValue(params.ExamDate);
         this.ExamDate = params.ExamDate;
         this.TotalMarks = params.TotalMarks;
         });
